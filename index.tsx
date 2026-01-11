@@ -1,227 +1,249 @@
 
-import { CV_DATA } from './constants';
-import { CVData } from './types';
+import { CV_DATA } from './constants.ts';
 
-// --- Application State ---
+// --- STAN ---
 let state = {
-  isDarkMode: localStorage.getItem('theme') === 'dark',
-  showAllCourses: false
+  isDarkMode: localStorage.getItem('theme') === 'dark' || 
+               (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches),
+  showAllCourses: false,
+  lang: localStorage.getItem('lang') || 'pl'
 };
 
-// --- Theme Management ---
-function applyTheme() {
+// --- LOGIKA MOTYWU ---
+function updateTheme() {
+  const html = document.documentElement;
   if (state.isDarkMode) {
-    document.documentElement.classList.add('dark');
+    html.classList.add('dark');
     localStorage.setItem('theme', 'dark');
   } else {
-    document.documentElement.classList.remove('dark');
+    html.classList.remove('dark');
     localStorage.setItem('theme', 'light');
   }
 }
 
-// --- Rendering Functions ---
+// --- TŁUMACZENIA INTERFEJSU ---
+const UI: any = {
+  pl: {
+    title: "SDET (Software Development Engineer in Test) dla T-Mobile Polska",
+    location: "Warszawa, Mazowieckie, Polska",
+    labels: {
+      summary: "Podsumowanie",
+      experience: "Doświadczenie",
+      courses: "Kursy i Certyfikaty",
+      education: "Edukacja",
+      showMore: "Pokaż wszystkie",
+      showLess: "Pokaż mniej",
+      contact: "Kontakt",
+      skills: "UMIEJĘTNOŚCI"
+    },
+    summary: [
+      "3+ lata doświadczenia w tworzeniu i utrzymywaniu testów automatycznych (GUI, REST, SOAP, Bazy danych);",
+      "9+ lat w estymowaniu kosztów złożonych rozwiązań IT i analizie biznesowej, szczególnie dla sektora Telco;",
+      "8+ lat doświadczenia w zarządzaniu projektami w złożonym środowisku międzynarodowym;",
+      "Ekspercka wiedza w zakresie strategii procesów ITIL dla złożonych rozwiązań IT;",
+      "Bardzo silne zaplecze techniczne związane z rozwojem i utrzymaniem systemów IT."
+    ]
+  },
+  en: {
+    title: "SDET (Software Development Engineer in Test) for T-Mobile Poland",
+    location: "Warsaw, Mazowieckie, Poland",
+    labels: {
+      summary: "Professional Summary",
+      experience: "Experience",
+      courses: "Courses & Certifications",
+      education: "Education",
+      showMore: "Show all",
+      showLess: "Show less",
+      contact: "Contact",
+      skills: "Top Skills"
+    },
+    summary: [
+      "3+ years creating and maintaining automated tests (GUI, REST, SOAP, Databases)",
+      "9+ years estimating costs of complex IT solutions and business analysis (Telco/IT)",
+      "8+ years of project management in complex international environments",
+      "Expertise in complex IT solutions based on ITIL processes strategy",
+      "Very strong technical background in IT development and maintenance"
+    ]
+  }
+};
 
-function renderSidebar(data: CVData) {
-  return `
-    <aside class="w-full md:w-80 bg-[#2C3E50] dark:bg-slate-950 text-slate-100 flex flex-col shrink-0 md:sticky md:top-0 md:h-screen overflow-y-auto transition-colors duration-300">
-      <div class="p-8">
-        <!-- Theme Toggle -->
-        <div class="flex justify-end mb-4">
-          <button id="theme-toggle" class="p-2 rounded-full hover:bg-white/10 transition-colors" title="Toggle Dark Mode">
-            ${state.isDarkMode ? `
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 9h-1m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707.707M6.343 6.343l-.707.707M14.5 12a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
-              </svg>
-            ` : `
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9 9 0 0012 21a9 9 0 008.354-5.646z" />
-              </svg>
-            `}
-          </button>
-        </div>
-
-        <div class="mb-8 flex justify-center">
-          <div class="w-32 h-32 rounded-full border-4 border-slate-400/30 overflow-hidden bg-slate-700 shadow-xl">
-            <img src="IMG_5595.JPG" alt="${data.name}" class="w-full h-full object-cover" 
-                 onerror="this.src='https://picsum.photos/seed/michal/200/200'"/>
-          </div>
-        </div>
-        
-        <nav class="mb-10 flex flex-col gap-2">
-           <div class="flex items-center gap-3 px-4 py-3 rounded-lg bg-indigo-600 text-white shadow-md">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-            <span class="font-medium whitespace-nowrap">Sopim - Michał Sobieraj</span>
-          </div>
-        </nav>
-        
-        <div class="space-y-8">
-          <div>
-            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400 mb-4 border-b border-slate-700/50 pb-1">Contact</h3>
-            <ul class="space-y-3 text-sm">
-              <li><a href="mailto:${data.contact.email}" class="flex items-center gap-2 hover:text-indigo-400 transition-colors"><span>📧</span> ${data.contact.email}</a></li>
-              <li><a href="https://${data.contact.linkedin}" target="_blank" class="flex items-center gap-2 hover:text-indigo-400 transition-colors"><span>🔗</span> LinkedIn</a></li>
-              <li><a href="https://${data.contact.github}" target="_blank" class="flex items-center gap-2 hover:text-indigo-400 transition-colors"><span>🛠</span> GitHub</a></li>
-            </ul>
-          </div>
-          <div>
-            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400 mb-4 border-b border-slate-700/50 pb-1">Top Skills</h3>
-            <div class="flex flex-wrap gap-2">
-              ${data.skills.map(skill => `<span class="bg-slate-700 dark:bg-slate-800 text-slate-200 px-2 py-1 rounded text-xs border border-slate-600/30">${skill}</span>`).join('')}
-            </div>
-          </div>
-          <div>
-            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400 mb-4 border-b border-slate-700/50 pb-1">Languages</h3>
-            <ul class="space-y-2 text-sm">
-              ${data.languages.map(lang => `<li class="text-slate-300 flex items-center gap-2"><span>💬</span> ${lang}</li>`).join('')}
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="mt-auto p-8 border-t border-slate-700/50 text-xs text-slate-500 text-center transition-colors duration-300">&copy; ${new Date().getFullYear()} Michał Sobieraj</div>
-    </aside>
-  `;
-}
-
-function renderCV(data: CVData) {
-  const displayedCourses = state.showAllCourses ? data.courses : data.courses.slice(0, 9);
-  const hiddenCount = data.courses.length - 9;
-
-  return `
-    <div class="fade-in max-w-3xl mx-auto">
-      <header class="mb-12">
-        <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-2 tracking-tight">${data.name}</h1>
-        <p class="text-xl text-indigo-600 dark:text-indigo-400 font-semibold mb-1">${data.title}</p>
-        <p class="text-slate-500 dark:text-slate-400 flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-          ${data.location}
-        </p>
-      </header>
-      
-      <section class="mb-12">
-        <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-6 border-b-2 border-indigo-100 dark:border-slate-800 pb-2 flex items-center gap-3">
-          <span class="bg-indigo-600 text-white p-1 rounded">👤</span> Summary
-        </h2>
-        <ul class="space-y-4 text-slate-600 dark:text-slate-300 leading-relaxed">
-          ${data.summary.map(item => `<li class="flex items-start gap-3"><span class="text-indigo-500 mt-1.5 h-1.5 w-1.5 rounded-full bg-indigo-500 shrink-0"></span><span>${item}</span></li>`).join('')}
-        </ul>
-      </section>
-      
-      <section class="mb-12">
-        <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-6 border-b-2 border-indigo-100 dark:border-slate-800 pb-2 flex items-center gap-3">
-          <span class="bg-indigo-600 text-white p-1 rounded">💼</span> Experience
-        </h2>
-        <div class="space-y-10">
-          ${data.experience.map(exp => `
-            <div class="relative pl-8 before:absolute before:left-0 before:top-2 before:bottom-0 before:w-0.5 before:bg-indigo-100 dark:before:bg-slate-800 last:before:hidden">
-              <div class="absolute left-[-4px] top-2 w-2.5 h-2.5 rounded-full bg-indigo-500 border-2 border-white dark:border-slate-900"></div>
-              <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
-                <div>
-                  <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100">${exp.company}</h3>
-                  <p class="text-indigo-600 dark:text-indigo-400 font-medium">${exp.role}</p>
-                </div>
-                <div class="text-sm text-slate-500 dark:text-slate-400 font-medium bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full mt-1 md:mt-0 transition-colors shadow-sm">${exp.period}</div>
-              </div>
-              <p class="text-sm text-slate-400 italic mb-3">${exp.location}</p>
-              ${exp.description ? `<ul class="space-y-2 text-slate-600 dark:text-slate-400 border-l-2 border-slate-100 dark:border-slate-800 ml-1 pl-4">${exp.description.map(p => `<li class="text-sm"><span class="text-slate-300 dark:text-slate-600 mr-2">•</span>${p}</li>`).join('')}</ul>` : ''}
-            </div>
-          `).join('')}
-        </div>
-      </section>
-
-      <section class="mb-12">
-        <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-6 border-b-2 border-indigo-100 dark:border-slate-800 pb-2 flex items-center gap-3">
-          <span class="bg-indigo-600 text-white p-1 rounded">🛠️</span> Skills & Certifications
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          ${displayedCourses.map(course => `
-            <div class="bg-white dark:bg-slate-800/40 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm transition-all hover:shadow-md hover:border-indigo-200 dark:hover:border-indigo-900 flex flex-col justify-between">
-              <div>
-                <h3 class="text-sm font-bold text-slate-800 dark:text-slate-100 leading-tight">${course.name}</h3>
-                <p class="text-indigo-600 dark:text-indigo-400 text-xs font-medium mt-1">${course.provider}</p>
-              </div>
-              <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-3 flex items-center gap-1 opacity-70">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 00-2 2z" /></svg>
-                ${course.date}
-              </p>
-            </div>
-          `).join('')}
-        </div>
-        
-        ${data.courses.length > 9 ? `
-          <div class="mt-10 flex justify-center">
-            <button id="toggle-courses" class="group flex items-center gap-2 px-8 py-3 border-2 border-indigo-600 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400 rounded-full font-bold hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-400 dark:hover:text-slate-900 transition-all shadow-lg active:scale-95">
-              <span>${state.showAllCourses ? 'Show Less' : `Show More (${hiddenCount} more)`}</span>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300 ${state.showAllCourses ? 'rotate-180' : ''}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-          </div>
-        ` : ''}
-      </section>
-
-      <section class="mb-12">
-        <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-6 border-b-2 border-indigo-100 dark:border-slate-800 pb-2 flex items-center gap-3">
-          <span class="bg-indigo-600 text-white p-1 rounded">🎓</span> Education
-        </h2>
-        <div class="grid grid-cols-1 gap-6">
-          ${data.education.map(edu => `
-            <div class="bg-white dark:bg-slate-800/40 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm transition-all hover:shadow-md hover:border-indigo-200 dark:hover:border-indigo-900">
-              <h3 class="text-lg font-bold text-slate-800 dark:text-slate-100">${edu.school}</h3>
-              <p class="text-indigo-600 dark:text-indigo-400 font-medium">${edu.degree}</p>
-              <p class="text-sm text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 00-2 2z" /></svg>
-                ${edu.period}
-              </p>
-            </div>
-          `).join('')}
-        </div>
-      </section>
-    </div>
-  `;
-}
-
-// --- Controller & Event Management ---
-
+// --- RENDEROWANIE ---
 function render() {
   const root = document.getElementById('root');
   if (!root) return;
 
-  applyTheme();
+  updateTheme();
+  const currentLang = state.lang as 'pl' | 'en';
+  const t = UI[currentLang];
 
   root.innerHTML = `
     <div class="flex flex-col md:flex-row min-h-screen bg-white dark:bg-slate-900 transition-colors duration-300">
-      ${renderSidebar(CV_DATA)}
-      <main class="flex-1 overflow-y-auto bg-gray-50 dark:bg-slate-900 transition-colors duration-300">
-        <div class="p-6 md:p-12 lg:p-16">
-          ${renderCV(CV_DATA)}
+      
+      <!-- SIDEBAR -->
+      <aside class="w-full md:w-80 bg-[#2C3E50] dark:bg-slate-950 text-slate-100 flex flex-col shrink-0 md:sticky md:top-0 md:h-screen overflow-y-auto border-r dark:border-slate-800 transition-colors duration-300">
+        <div class="p-8">
+          <div class="flex justify-between items-center mb-6">
+            <!-- Przełącznik Języków -->
+            <div class="flex bg-slate-800/50 p-1 rounded-lg border border-white/10">
+              <button id="lang-pl" class="px-3 py-1 rounded-md text-[10px] font-bold transition-all ${state.lang === 'pl' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-500 hover:text-slate-300'}">PL</button>
+              <button id="lang-en" class="px-3 py-1 rounded-md text-[10px] font-bold transition-all ${state.lang === 'en' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-500 hover:text-slate-300'}">EN</button>
+            </div>
+            <!-- Przełącznik Motywu -->
+            <button id="theme-toggle" class="p-2.5 rounded-full bg-slate-800/50 border border-white/10 hover:bg-white/10 transition-all active:scale-90 text-lg shadow-inner">
+              ${state.isDarkMode ? '☀️' : '🌙'}
+            </button>
+          </div>
+
+          <div class="mb-8 flex justify-center">
+            <div class="w-32 h-32 rounded-full border-4 border-white/20 overflow-hidden shadow-2xl bg-slate-800 ring-4 ring-indigo-500/20">
+              <img src="IMG_5595.JPG" alt="${CV_DATA.name}" class="w-full h-full object-cover" onerror="this.src='https://picsum.photos/seed/michal/200/200'"/>
+            </div>
+          </div>
+          
+          <!-- BRANDING -->
+          <div class="mb-10">
+            <div class="flex items-center gap-3 px-4 py-4 rounded-2xl bg-indigo-600 shadow-xl text-white border border-indigo-400/30">
+              <span class="text-xl">🚀</span>
+              <span class="font-bold tracking-tight">Sopim - ${CV_DATA.name}</span>
+            </div>
+          </div>
+
+          <div class="space-y-6 pt-6 border-t border-white/10">
+            <div>
+              <h3 class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3">${t.labels.contact}</h3>
+              <a href="mailto:${CV_DATA.contact.email}" class="text-xs text-slate-300 hover:text-indigo-400 break-all mb-1 block transition-colors">📧 ${CV_DATA.contact.email}</a>
+              <a href="https://${CV_DATA.contact.linkedin}" target="_blank" class="text-xs text-slate-400 hover:text-indigo-400 block mb-1 transition-colors">🔗 LinkedIn</a>
+              <a href="https://${CV_DATA.contact.github}" target="_blank" class="text-xs text-slate-400 hover:text-indigo-400 block transition-colors">🛠 GitHub</a>
+            </div>
+            <div>
+              <h3 class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3">${t.labels.skills}</h3>
+              <div class="flex flex-wrap gap-1">
+                ${CV_DATA.skills.map(s => `<span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded-md text-[9px] border border-white/5 hover:border-indigo-500/50 transition-colors">${s}</span>`).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-auto p-8 text-[10px] text-slate-500 text-center uppercase tracking-widest opacity-50">
+          &copy; ${new Date().getFullYear()} ${CV_DATA.name}
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="flex-1 bg-white dark:bg-slate-900 transition-colors duration-300 overflow-y-auto">
+        <div class="max-w-4xl mx-auto p-6 md:p-16 lg:p-20">
+          <div class="fade-in">
+            <header class="mb-16">
+              <h1 class="text-4xl md:text-6xl font-black text-slate-900 dark:text-white mb-4 tracking-tight">${CV_DATA.name}</h1>
+              <p class="text-xl md:text-2xl text-indigo-600 dark:text-indigo-400 font-bold mb-3">${t.title}</p>
+              <div class="flex items-center gap-2 text-slate-500 font-medium">
+                <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs">📍 ${t.location}</span>
+              </div>
+            </header>
+
+            <section class="mb-16">
+              <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center gap-3">
+                <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">01</span> ${t.labels.summary}
+              </h2>
+              <ul class="space-y-4">
+                ${t.summary.map((s: string) => `
+                  <li class="flex gap-4 text-slate-600 dark:text-slate-300 leading-relaxed">
+                    <span class="text-indigo-500 font-bold">/</span> ${s}
+                  </li>
+                `).join('')}
+              </ul>
+            </section>
+
+            <section class="mb-16">
+              <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center gap-3">
+                <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">02</span> ${t.labels.experience}
+              </h2>
+              <div class="space-y-12">
+                ${CV_DATA.experience.map(e => `
+                  <div class="relative pl-8 experience-card">
+                    <div class="absolute -left-1.5 top-0 w-3 h-3 rounded-full bg-indigo-600 ring-4 ring-white dark:ring-slate-900"></div>
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
+                      <h3 class="text-xl font-bold text-slate-900 dark:text-white">${e.company}</h3>
+                      <span class="text-xs font-bold bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 px-3 py-1 rounded-full mt-2 md:mt-0">
+                        ${state.lang === 'pl' ? e.period : e.period.replace('Lipiec', 'July').replace('Obecnie', 'Present')}
+                      </span>
+                    </div>
+                    <p class="text-indigo-600 dark:text-indigo-400 font-bold text-sm mb-3">${e.role}</p>
+                    <ul class="space-y-1">
+                      ${(e.description || []).map(d => `<li class="text-sm text-slate-500 dark:text-slate-400">• ${d}</li>`).join('')}
+                    </ul>
+                  </div>
+                `).join('')}
+              </div>
+            </section>
+
+            <section class="mb-16">
+              <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center gap-3">
+                <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">03</span> ${t.labels.courses}
+              </h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                ${(state.showAllCourses ? CV_DATA.courses : CV_DATA.courses.slice(0, 9)).map(c => `
+                  <div class="bg-white dark:bg-slate-800/50 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition-all group shadow-sm">
+                    <h4 class="text-xs font-bold text-slate-900 dark:text-white mb-2 leading-tight group-hover:text-indigo-500">${c.name}</h4>
+                    <p class="text-[10px] text-slate-400 mb-1">${c.provider}</p>
+                    <p class="text-[9px] text-indigo-500 font-bold uppercase tracking-tighter">${c.date}</p>
+                  </div>
+                `).join('')}
+              </div>
+              <div class="mt-10 flex justify-center">
+                <button id="toggle-courses" class="group relative px-10 py-3 border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400 rounded-full font-bold text-sm overflow-hidden transition-all hover:text-white dark:hover:text-slate-900 active:scale-95 shadow-lg">
+                  <span class="relative z-10">${state.showAllCourses ? t.labels.showLess : `${t.labels.showMore} (${CV_DATA.courses.length})`}</span>
+                  <div class="absolute inset-0 bg-indigo-600 dark:bg-indigo-400 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                </button>
+              </div>
+            </section>
+
+            <section>
+              <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center gap-3">
+                <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">04</span> ${t.labels.education}
+              </h2>
+              ${CV_DATA.education.map(edu => `
+                <div class="bg-indigo-50 dark:bg-indigo-900/10 p-8 rounded-3xl border border-indigo-100 dark:border-indigo-900/50 shadow-sm">
+                  <h3 class="text-lg font-bold text-slate-900 dark:text-white">${edu.school}</h3>
+                  <p class="text-indigo-600 dark:text-indigo-400 font-bold">${state.lang === 'pl' ? edu.degree : 'Engineer, Computer Science'}</p>
+                  <p class="text-sm text-slate-400 mt-2">${edu.period}</p>
+                </div>
+              `).join('')}
+            </section>
+          </div>
         </div>
       </main>
     </div>
   `;
 
-  attachEventListeners();
+  attachEvents();
 }
 
-function attachEventListeners() {
-  // Theme toggle
+function attachEvents() {
+  // Motyw
   document.getElementById('theme-toggle')?.addEventListener('click', () => {
     state.isDarkMode = !state.isDarkMode;
     render();
   });
 
-  // Course toggle
+  // Języki
+  document.getElementById('lang-pl')?.addEventListener('click', () => {
+    state.lang = 'pl';
+    localStorage.setItem('lang', 'pl');
+    render();
+  });
+
+  document.getElementById('lang-en')?.addEventListener('click', () => {
+    state.lang = 'en';
+    localStorage.setItem('lang', 'en');
+    render();
+  });
+
+  // Kursy
   document.getElementById('toggle-courses')?.addEventListener('click', () => {
     state.showAllCourses = !state.showAllCourses;
     render();
-    // Smooth scroll back to section top if closing
-    if (!state.showAllCourses) {
-      document.getElementById('toggle-courses')?.scrollIntoView({ behavior: 'smooth', block: 'end' });
-    }
   });
 }
 
-// Initial Boot
+// Start aplikacji
 render();

@@ -1,15 +1,39 @@
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { GoogleGenAI } from "@google/genai";
+
+const LOADING_STEPS = [
+  "Analyzing facial features...",
+  "Optimizing lighting environment...",
+  "Applying professional color grading...",
+  "Refining background details...",
+  "Finalizing high-resolution output...",
+  "Almost there, polishing pixels..."
+];
 
 const AIImageStudio: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [prompt, setPrompt] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [currentStep, setCurrentStep] = useState(0);
   const [editedImage, setEditedImage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Cycle through loading steps while processing
+  useEffect(() => {
+    let interval: number | undefined;
+    if (isProcessing) {
+      setCurrentStep(0);
+      interval = window.setInterval(() => {
+        setCurrentStep((prev) => (prev + 1) % LOADING_STEPS.length);
+      }, 1500);
+    } else {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [isProcessing]);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -65,7 +89,6 @@ const AIImageStudio: React.FC = () => {
       }
 
       if (!foundImage) {
-        // Fallback or message if only text was returned
         const textPart = response.candidates?.[0]?.content?.parts.find(p => p.text);
         if (textPart?.text) {
           setError(`The AI responded but didn't generate a new image: ${textPart.text}`);
@@ -99,7 +122,7 @@ const AIImageStudio: React.FC = () => {
               <img src={selectedImage} alt="Selected" className="absolute inset-0 w-full h-full object-cover" />
             ) : (
               <div className="text-center">
-                <div className="text-4xl mb-4">📸</div>
+                <div className="text-4xl mb-4 text-slate-400">📸</div>
                 <p className="font-medium text-slate-700">Click to upload your photo</p>
                 <p className="text-sm text-slate-500">PNG or JPG supported</p>
               </div>
@@ -142,7 +165,7 @@ const AIImageStudio: React.FC = () => {
             <button
               onClick={processImage}
               disabled={isProcessing || !selectedImage || !prompt}
-              className={`w-full py-4 rounded-xl font-bold text-white transition-all ${
+              className={`w-full py-4 rounded-xl font-bold text-white transition-all overflow-hidden relative ${
                 isProcessing || !selectedImage || !prompt
                   ? 'bg-slate-400 cursor-not-allowed'
                   : 'bg-indigo-600 hover:bg-indigo-700 shadow-lg hover:shadow-indigo-200'
@@ -154,7 +177,7 @@ const AIImageStudio: React.FC = () => {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
-                  Processing with Gemini...
+                  Processing...
                 </span>
               ) : 'Apply Magic Edit'}
             </button>
@@ -169,7 +192,38 @@ const AIImageStudio: React.FC = () => {
         <div className="flex flex-col">
           <label className="block text-sm font-semibold text-slate-700 mb-2">AI Result</label>
           <div className="flex-1 border border-slate-200 bg-white rounded-2xl flex items-center justify-center overflow-hidden min-h-[400px] shadow-sm relative">
-            {editedImage ? (
+            {isProcessing ? (
+              <div className="w-full h-full relative flex flex-col items-center justify-center bg-slate-50">
+                {selectedImage && (
+                  <img src={selectedImage} alt="Processing source" className="absolute inset-0 w-full h-full object-cover opacity-20 blur-sm" />
+                )}
+                
+                {/* Scanning Bar */}
+                <div className="absolute inset-x-0 h-1 bg-indigo-500/50 shadow-[0_0_15px_rgba(99,102,241,0.5)] z-10 animate-scan"></div>
+                
+                <div className="relative z-20 flex flex-col items-center">
+                  <div className="mb-6 relative">
+                    <div className="w-16 h-16 border-4 border-indigo-100 border-t-indigo-600 rounded-full animate-spin"></div>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                       <span className="text-indigo-600 text-xl font-bold">AI</span>
+                    </div>
+                  </div>
+                  
+                  <div className="text-center px-6">
+                    <p className="text-indigo-900 font-bold text-lg mb-2 animate-pulse">
+                      {LOADING_STEPS[currentStep]}
+                    </p>
+                    <div className="w-48 h-1 bg-slate-200 rounded-full overflow-hidden mx-auto">
+                      <div 
+                        className="h-full bg-indigo-600 transition-all duration-1000 ease-linear"
+                        style={{ width: `${((currentStep + 1) / LOADING_STEPS.length) * 100}%` }}
+                      ></div>
+                    </div>
+                    <p className="text-slate-400 text-sm mt-4 italic">Using Gemini 2.5 Flash Image</p>
+                  </div>
+                </div>
+              </div>
+            ) : editedImage ? (
               <div className="w-full h-full relative group">
                 <img src={editedImage} alt="Edited Result" className="w-full h-full object-cover animate-in fade-in duration-1000" />
                 <a 
@@ -180,23 +234,18 @@ const AIImageStudio: React.FC = () => {
                   Download Result
                 </a>
               </div>
-            ) : isProcessing ? (
-              <div className="text-center p-8">
-                <div className="flex justify-center mb-4">
-                  <div className="w-12 h-12 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div>
-                </div>
-                <p className="text-slate-400 italic">"Imagining a more professional you..."</p>
-              </div>
             ) : (
-              <div className="text-center p-8 text-slate-400">
+              <div className="text-center p-8 text-slate-400 flex flex-col items-center">
+                <div className="w-20 h-20 mb-4 bg-slate-50 rounded-full flex items-center justify-center text-3xl">✨</div>
                 <p>Your enhanced photo will appear here.</p>
+                <p className="text-xs mt-2">Upload a photo and describe your edit to begin.</p>
               </div>
             )}
           </div>
           
           <div className="mt-4 p-4 bg-indigo-50 border border-indigo-100 rounded-xl text-xs text-indigo-700 flex gap-3">
              <span className="text-lg">💡</span>
-             <p>Our AI works best with clear, high-resolution front-facing portraits. Edits take 5-10 seconds to generate.</p>
+             <p>Our AI works best with clear, high-resolution front-facing portraits. Professional edits take about 5-10 seconds to generate.</p>
           </div>
         </div>
       </div>
