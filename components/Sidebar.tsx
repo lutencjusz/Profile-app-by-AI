@@ -12,13 +12,16 @@ const Sidebar: React.FC<SidebarProps> = ({ data, activeTab, setActiveTab }) => {
   return (
     <aside className="w-full md:w-80 bg-[#2C3E50] text-slate-100 flex flex-col shrink-0 md:sticky md:top-0 md:h-screen overflow-y-auto">
       <div className="p-8">
-        {/* Profile Image Placeholder */}
+        {/* Profile Image */}
         <div className="mb-8 flex justify-center">
-          <div className="w-32 h-32 rounded-full border-4 border-slate-400/30 overflow-hidden bg-slate-700">
+          <div className="w-32 h-32 rounded-full border-4 border-slate-400/30 overflow-hidden bg-slate-700 shadow-xl">
             <img 
-              src={`https://picsum.photos/seed/${data.name}/200/200`} 
+              src="IMG_5595.JPG" 
               alt={data.name}
               className="w-full h-full object-cover"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = `https://picsum.photos/seed/${data.name}/200/200`;
+              }}
             />
           </div>
         </div>

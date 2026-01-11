@@ -42,7 +42,7 @@ function renderSidebar(data: CVData) {
 
         <div class="mb-8 flex justify-center">
           <div class="w-32 h-32 rounded-full border-4 border-slate-400/30 overflow-hidden bg-slate-700 shadow-xl">
-            <img src="https://i.ibb.co/p6Vst7V/image.png" alt="${data.name}" class="w-full h-full object-cover" 
+            <img src="IMG_5595.JPG" alt="${data.name}" class="w-full h-full object-cover" 
                  onerror="this.src='https://picsum.photos/seed/michal/200/200'"/>
           </div>
         </div>
