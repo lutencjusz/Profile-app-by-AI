@@ -1,14 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src fonts.gstatic.com; img-src 'self' data: https://picsum.photos https://*.googleusercontent.com; connect-src 'self';">
     <title>Sopim | Michał Sobieraj - Professional Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -21,39 +22,289 @@
             }
         }
     </script>
-    <style>
-        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-        .fade-in { animation: fadeIn 0.5s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        .dark ::-webkit-scrollbar-thumb { background: #334155; }
-
-        .experience-card::before {
-            content: '';
-            position: absolute;
-            left: -1px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: #e2e8f0;
-        }
-        .dark .experience-card::before { background: #334155; }
-    </style>
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.35.0"
-  }
-}
-</script>
 </head>
 <body class="bg-gray-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300">
     <div id="root"></div>
-    <script type="module" src="index.tsx"></script>
+
+    <script>
+        // --- POMOCNIKI BEZPIECZEŃSTWA ---
+        const safeText = (text) => {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        };
+
+        // Zaciemnianie e-maila przed botami
+        const getEmail = () => {
+            const parts = ["michal.sobieraj", "sopim.pl"];
+            return parts.join("@");
+        };
+
+        // --- DANE CV ---
+        const CV_DATA = {
+            name: "Michał Sobieraj",
+            nip: "5271279258",
+            contact: {
+                linkedin: "linkedin.com/in/michal-sobieraj-2953962",
+                github: "github.com/lutencjusz"
+            },
+            skills: ["Java", "AI", "JUnit", "Selenium", "Postman", "SQL", "Agile", "Business Analysis", "Defect Management", "RPA", "Jenkins", "Kafka"],
+            experience: [
+                { company: "T-Mobile", url: "https://www.t-mobile.pl", role: "Software Development Engineer in Test", period: "Lipiec 2022 - Obecnie" },
+                { company: "Sii Poland", url: "https://sii.pl", role: "Senior IT Business Analyst", period: "Listopad 2019 - Lipiec 2022" },
+                { 
+                    company: "Polkomtel", 
+                    url: "https://www.plus.pl",
+                    role: "Senior Business Analyst", 
+                    period: "Czerwiec 2009 - Listopad 2019",
+                    description: ["Preparing of estimates, opportunity study, feasibility study", "Estimating IT costs of new business products", "Coordinating and verifying subcontractors"]
+                }
+            ],
+            certifications: [
+                {
+                    name: "ISTQB - Certified Tester Foundation Level",
+                    provider: "SJSI Stowarzyszenie Jakości Systemów Informatycznych",
+                    providerUrl: "https://sjsi.org",
+                    date: "06/2022",
+                    id: "18375/CTFL/2022"
+                }
+            ],
+            education: [
+                { school: "Polsko-Japońska Akademia Technik Komputerowych", url: "https://pja.edu.pl", degree: "Inżynier Informatyki", period: "1998 - 2002" }
+            ],
+            courses: [
+                { name: "Hackathon during Tech Day 2025 – AI & Data Edition", provider: "T-Mobile", date: "15/10/2025" },
+                { name: "Apache Kafka – od podstaw do zaawansowanej wiedzy – 5h", provider: "T-Mobile", date: "12/05/2024" },
+                { name: "CI/CD Jenkins dla testera/programisty w praktyce! – 5,5h", provider: "T-Mobile", date: "18/06/2023" },
+                { name: "Become 100% Confident RPA UiPath Developer – Build 8 Projects", provider: "T-Mobile", date: "10/04/2023" },
+                { name: "Postman od podstaw – testowanie REST API", provider: "Sii Poland", date: "18/04/2022" },
+                { name: "Akademia testera automatyzującego wave 1", provider: "T-Mobile", date: "18/10/2021" },
+                { name: "Tworzenie aplikacji w systemie Android", provider: "Sii Poland", date: "17/10/2021" },
+                { name: "Selenium – Serenity BDD Java", provider: "Sii Poland", date: "08/11/2020" },
+                { name: "Front-end zaawansowany (Udemy) – 38,5h", provider: "Sii Poland", date: "31/10/2020" },
+                { name: "React dla średnio zaawansowanych – 17,5h", provider: "Sii Poland", date: "22/05/2020" },
+                { name: "Node.js, Express, MongoDB & More – Complete Bootcamp", provider: "Polkomtel", date: "31/08/2019" },
+                { name: "Systems Architecture for Analyst – 24h", provider: "Polkomtel", date: "15/11/2018" },
+                { name: "UML for Analyst", provider: "Polkomtel", date: "10/2018" },
+                { name: "Angular/CLI – kompletny kurs od podstaw", provider: "Polkomtel", date: "23/02/2018" },
+                { name: "The George Washington University – PMI", provider: "Siemens", date: "1999–2003" },
+                { name: "ISTQB Foundation – Sii Training Practice", provider: "Sii Poland", date: "–" },
+                { name: "Modelowanie procesów biznesowych w UML i BPMN", provider: "Polkomtel", date: "–" },
+                { name: "Service Oriented Architecture (SOA) – introduction", provider: "Polkomtel", date: "–" },
+                { name: "Mind Mapping", provider: "Polkomtel", date: "–" },
+                { name: "Risk Analytics", provider: "Citi Handlowy", date: "–" },
+                { name: "Leadership 1", provider: "Citi Handlowy", date: "–" },
+                { name: "Salesforce – Profil Trailblazer", provider: "Sii Poland", date: "–" },
+                { name: "Improving the Control Environment", provider: "Citi Handlowy", date: "–" },
+                { name: "Zarządzanie zakresem przy użyciu Enterprise Architect", provider: "Polkomtel", date: "–" },
+                { name: "Scope Management by Enterprise Architect", provider: "Polkomtel", date: "–" }
+            ]
+        };
+
+        // --- STAN ---
+        let state = {
+            isDarkMode: localStorage.getItem('theme') === 'dark',
+            showAllCourses: false,
+            lang: localStorage.getItem('lang') || 'pl'
+        };
+
+        // --- TŁUMACZENIA ---
+        const UI = {
+            pl: {
+                title: "SDET (Software Development Engineer in Test) dla T-Mobile Polska",
+                location: "Warszawa, Mazowieckie, Polska",
+                labels: {
+                    summary: "Podsumowanie", experience: "Doświadczenie", certifications: "Certyfikaty", 
+                    courses: "Kursy", education: "Edukacja", showMore: "Pokaż wszystkie", 
+                    showLess: "Pokaż mniej", contact: "Kontakt", skills: "UMIEJĘTNOŚCI", certId: "Identyfikator poświadczenia No"
+                },
+                summary: [
+                    "3+ lata doświadczenia w testach automatycznych (GUI, REST, SQL).",
+                    "9+ lat w estymowaniu kosztów IT dla sektora Telco.",
+                    "8+ lat zarządzania projektami w środowisku międzynarodowym.",
+                    "Ekspert procesów ITIL i analizy biznesowej."
+                ]
+            },
+            en: {
+                title: "SDET (Software Development Engineer in Test) for T-Mobile Poland",
+                location: "Warsaw, Mazowieckie, Poland",
+                labels: {
+                    summary: "Professional Summary", experience: "Experience", certifications: "Certifications", 
+                    courses: "Courses", education: "Education", showMore: "Show all", 
+                    showLess: "Show less", contact: "Contact", skills: "Top Skills", certId: "Credential ID No."
+                },
+                summary: [
+                    "3+ years in automated testing (GUI, REST, SQL).",
+                    "9+ years in IT cost estimation for the Telco sector.",
+                    "8+ years of project management in international environments.",
+                    "Expert in ITIL processes and business analysis."
+                ]
+            }
+        };
+
+        function translatePeriod(period, lang) {
+            if (lang === 'pl') return period;
+            return period.replace('Lipiec', 'July').replace('Listopad', 'November').replace('Czerwiec', 'June').replace('Obecnie', 'Present');
+        }
+
+        function updateTheme() {
+            document.documentElement.classList.toggle('dark', state.isDarkMode);
+            localStorage.setItem('theme', state.isDarkMode ? 'dark' : 'light');
+        }
+
+        function render() {
+            const root = document.getElementById('root');
+            updateTheme();
+            const t = UI[state.lang];
+            const initialCount = 9;
+            const displayedCourses = state.showAllCourses ? CV_DATA.courses : CV_DATA.courses.slice(0, initialCount);
+            const userEmail = getEmail();
+
+            root.innerHTML = `
+                <div class="flex flex-col md:flex-row min-h-screen">
+                    <!-- SIDEBAR -->
+                    <aside class="w-full md:w-80 bg-[#2C3E50] dark:bg-slate-950 text-slate-100 flex flex-col shrink-0 md:sticky md:top-0 md:h-screen overflow-y-auto transition-colors duration-300">
+                        <div class="p-8">
+                            <div class="flex justify-between items-center mb-6">
+                                <div class="flex bg-slate-800 p-1 rounded-lg border border-white/10" role="group" aria-label="Language selection">
+                                    <button onclick="setLang('pl')" class="px-3 py-1 rounded-md text-[10px] font-bold ${state.lang === 'pl' ? 'bg-indigo-600' : 'text-slate-500'}">PL</button>
+                                    <button onclick="setLang('en')" class="px-3 py-1 rounded-md text-[10px] font-bold ${state.lang === 'en' ? 'bg-indigo-600' : 'text-slate-500'}">EN</button>
+                                </div>
+                                <button onclick="toggleTheme()" aria-label="Toggle theme" class="p-2.5 rounded-full bg-slate-800 border border-white/10 hover:bg-white/10 transition-all text-lg">${state.isDarkMode ? '☀️' : '🌙'}</button>
+                            </div>
+                            <div class="mb-8 flex justify-center">
+                                <div class="w-32 h-32 rounded-full border-4 border-white/20 overflow-hidden shadow-2xl bg-slate-800 ring-4 ring-indigo-500/20">
+                                    <img src="IMG_5595.jpg" alt="${safeText(CV_DATA.name)}" class="w-full h-full object-cover" onerror="this.src='https://picsum.photos/seed/michal/200/200'"/>
+                                </div>
+                            </div>
+                            <div class="mb-10">
+                                <div class="flex items-center gap-3 px-4 py-4 rounded-2xl bg-indigo-600 shadow-xl text-white border border-indigo-400/30">
+                                    <span class="text-xl" aria-hidden="true">🚀</span>
+                                    <div class="flex flex-col">
+                                        <span class="font-bold tracking-tight">Sopim - ${safeText(CV_DATA.name)}</span>
+                                        <span class="text-[10px] font-medium opacity-80" aria-label="Tax Identification Number">NIP: ${safeText(CV_DATA.nip)}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-y-6 pt-6 border-t border-white/10 text-xs">
+                                <div>
+                                    <h3 class="font-bold uppercase tracking-widest text-slate-500 mb-3">${t.labels.contact}</h3>
+                                    <a href="mailto:${userEmail}" rel="noopener" class="text-slate-300 hover:text-indigo-400 block mb-1 transition-colors">📧 ${userEmail}</a>
+                                    <a href="https://${CV_DATA.contact.linkedin}" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-indigo-400 block mb-1 transition-colors">🔗 LinkedIn</a>
+                                    <a href="https://${CV_DATA.contact.github}" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-indigo-400 block transition-colors">🛠 GitHub</a>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold uppercase tracking-widest text-slate-500 mb-3">${t.labels.skills}</h3>
+                                    <div class="flex flex-wrap gap-1">
+                                        ${CV_DATA.skills.map(s => `<span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded-md text-[9px] border border-white/5 transition-all hover:border-indigo-500/50">${safeText(s)}</span>`).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                    <!-- MAIN CONTENT -->
+                    <main class="flex-1 bg-white dark:bg-slate-900 overflow-y-auto transition-colors duration-300">
+                        <div class="max-w-4xl mx-auto p-6 md:p-16 lg:p-20">
+                            <div class="fade-in">
+                                <header class="mb-16">
+                                    <h1 class="text-4xl md:text-6xl font-black text-slate-900 dark:text-white mb-4 tracking-tight">${safeText(CV_DATA.name)}</h1>
+                                    <p class="text-xl md:text-2xl text-indigo-600 dark:text-indigo-400 font-bold mb-3">${safeText(t.title)}</p>
+                                    <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs text-slate-500 font-medium">📍 ${safeText(t.location)}</span>
+                                </header>
+                                <section class="mb-16">
+                                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center gap-3">
+                                        <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">01</span> ${t.labels.summary}
+                                    </h2>
+                                    <ul class="space-y-4">
+                                        ${t.summary.map(s => `<li class="flex items-start gap-4 text-slate-600 dark:text-slate-300 leading-relaxed"><span class="w-2.5 h-2.5 mt-2 rounded-full bg-indigo-600 ring-2 ring-indigo-100 dark:ring-indigo-900/30 shrink-0 shadow-sm" aria-hidden="true"></span>${safeText(s)}</li>`).join('')}
+                                    </ul>
+                                </section>
+                                <section class="mb-16">
+                                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center gap-3">
+                                        <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">02</span> ${t.labels.experience}
+                                    </h2>
+                                    <div class="space-y-12">
+                                        ${CV_DATA.experience.map(e => `
+                                            <div class="relative pl-8 experience-card">
+                                                <div class="absolute -left-1.5 top-0 w-3 h-3 rounded-full bg-indigo-600 ring-4 ring-white dark:ring-slate-900"></div>
+                                                <div class="flex flex-col md:flex-row md:justify-between mb-2">
+                                                    <h3 class="text-xl font-bold dark:text-white transition-colors">
+                                                        <a href="${e.url}" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">${safeText(e.company)}</a>
+                                                    </h3>
+                                                    <span class="text-xs font-bold text-indigo-600 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 px-3 py-1 rounded-full">
+                                                        ${safeText(translatePeriod(e.period, state.lang))}
+                                                    </span>
+                                                </div>
+                                                <p class="text-indigo-600 dark:text-indigo-400 font-bold text-sm mb-3">${safeText(e.role)}</p>
+                                                ${e.description ? `<ul class="space-y-1">${e.description.map(d => `<li class="text-sm text-slate-500 dark:text-slate-400">• ${safeText(d)}</li>`).join('')}</ul>` : ''}
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </section>
+                                <section class="mb-16">
+                                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center gap-3">
+                                        <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">03</span> ${t.labels.certifications}
+                                    </h2>
+                                    <div class="space-y-6">
+                                        ${CV_DATA.certifications.map(cert => `
+                                            <div class="bg-indigo-50 dark:bg-indigo-900/10 p-8 rounded-3xl border border-indigo-100 dark:border-indigo-900/50 shadow-sm">
+                                                <h3 class="text-lg font-bold text-slate-900 dark:text-white">${safeText(cert.name)}</h3>
+                                                <p class="text-indigo-600 dark:text-indigo-400 font-bold">
+                                                    <a href="${cert.providerUrl}" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-800 dark:hover:text-indigo-300 hover:underline transition-colors">${safeText(cert.provider)}</a>
+                                                </p>
+                                                <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">${safeText(cert.date)}</p>
+                                                <p class="text-xs text-slate-400 dark:text-slate-500 mt-1 italic">${t.labels.certId} ${safeText(cert.id)}</p>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </section>
+                                <section class="mb-16">
+                                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center gap-3">
+                                        <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">04</span> ${t.labels.courses}
+                                    </h2>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                        ${displayedCourses.map(c => `
+                                            <div class="bg-indigo-50 dark:bg-indigo-900/10 p-6 rounded-3xl border border-indigo-100 dark:border-indigo-900/50 shadow-sm transition-all hover:scale-[1.02] flex flex-col justify-between">
+                                                <div>
+                                                    <h4 class="text-sm font-bold text-slate-900 dark:text-white mb-2 leading-tight transition-colors">${safeText(c.name)}</h4>
+                                                    <p class="text-indigo-600 dark:text-indigo-400 font-bold text-xs">${safeText(c.provider)}</p>
+                                                </div>
+                                                <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-3 font-medium uppercase tracking-wider">${safeText(c.date)}</p>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                    <div class="mt-10 flex justify-center">
+                                        <button onclick="toggleCourses()" class="px-10 py-3 border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400 rounded-full font-bold text-sm hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-400 dark:hover:text-slate-900 transition-all shadow-lg active:scale-95">
+                                            ${state.showAllCourses ? t.labels.showLess : `${t.labels.showMore} (${CV_DATA.courses.length - initialCount} more)`}
+                                        </button>
+                                    </div>
+                                </section>
+                                <section>
+                                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center gap-3">
+                                        <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">05</span> ${t.labels.education}
+                                    </h2>
+                                    ${CV_DATA.education.map(edu => `
+                                        <div class="bg-indigo-50 dark:bg-indigo-900/10 p-8 rounded-3xl border border-indigo-100 dark:border-indigo-900/50 shadow-sm">
+                                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">
+                                                <a href="${edu.url}" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">${safeText(edu.school)}</a>
+                                            </h3>
+                                            <p class="text-indigo-600 dark:text-indigo-400 font-bold">${state.lang === 'pl' ? safeText(edu.degree) : 'Engineer, Computer Science'}</p>
+                                            <p class="text-sm text-slate-400 mt-2">${safeText(edu.period)}</p>
+                                        </div>
+                                    `).join('')}
+                                </section>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            `;
+        }
+
+        window.toggleTheme = () => { state.isDarkMode = !state.isDarkMode; render(); };
+        window.setLang = (l) => { state.lang = l; localStorage.setItem('lang', l); render(); };
+        window.toggleCourses = () => { state.showAllCourses = !state.showAllCourses; render(); };
+
+        render();
+    </script>
 </body>
 </html>
