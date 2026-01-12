@@ -26,12 +26,32 @@
     <div id="root"></div>
 
     <script>
-        // --- DANE CV (Zintegrowane i Pełne) ---
+        // --- ZABEZPIECZENIA ---
+        
+        /**
+         * 1. XSS Protection: Escaping dynamic content.
+         */
+        const esc = (str) => {
+            if (!str) return "";
+            const temp = document.createElement('div');
+            temp.textContent = str;
+            return temp.innerHTML;
+        };
+
+        /**
+         * 2. Email Obfuscation: Prevents basic scraping bots.
+         */
+        const getEmailAddress = () => {
+            const u = "michal.sobieraj";
+            const d = "sopim.pl";
+            return `${u}@${d}`;
+        };
+
+        // --- DANE CV ---
         const CV_DATA = {
             name: "Michał Sobieraj",
             nip: "5271279258",
             contact: {
-                email: "michal.sobieraj@sopim.pl",
                 linkedin: "linkedin.com/in/michal-sobieraj-2953962",
                 github: "github.com/lutencjusz"
             },
@@ -168,6 +188,7 @@
             updateTheme();
             const currentLang = state.lang;
             const t = UI[currentLang];
+            const email = getEmailAddress();
 
             // Obliczanie kursów do wyświetlenia
             const initialCount = 9;
@@ -191,7 +212,7 @@
 
                             <div class="mb-8 flex justify-center">
                                 <div class="w-32 h-32 rounded-full border-4 border-white/20 overflow-hidden shadow-2xl bg-slate-800 ring-4 ring-indigo-500/20">
-                                    <img src="IMG_5595.JPG" alt="${CV_DATA.name}" class="w-full h-full object-cover" onerror="this.src='https://picsum.photos/seed/michal/200/200'"/>
+                                    <img src="IMG_5595.JPG" alt="${esc(CV_DATA.name)}" class="w-full h-full object-cover" onerror="this.src='https://picsum.photos/seed/michal/200/200'"/>
                                 </div>
                             </div>
                             
@@ -199,23 +220,24 @@
                                 <div class="flex items-center gap-3 px-4 py-4 rounded-2xl bg-indigo-600 shadow-xl text-white border border-indigo-400/30">
                                     <span class="text-xl">🚀</span>
                                     <div class="flex flex-col">
-                                        <span class="font-bold tracking-tight">Sopim - Michał Sobieraj</span>
-                                        <span class="text-[10px] font-medium opacity-80">NIP: ${CV_DATA.nip}</span>
+                                        <span class="font-bold tracking-tight">Sopim - ${esc(CV_DATA.name)}</span>
+                                        <span class="text-[10px] font-medium opacity-80">NIP: ${esc(CV_DATA.nip)}</span>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="space-y-6 pt-6 border-t border-white/10">
                                 <div>
-                                    <h3 class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3">${t.labels.contact}</h3>
-                                    <a href="mailto:${CV_DATA.contact.email}" class="text-xs text-slate-300 hover:text-indigo-400 block mb-1 transition-colors">📧 ${CV_DATA.contact.email}</a>
-                                    <a href="https://${CV_DATA.contact.linkedin}" target="_blank" class="text-xs text-slate-400 hover:text-indigo-400 block mb-1 transition-colors">🔗 LinkedIn</a>
-                                    <a href="https://${CV_DATA.contact.github}" target="_blank" class="text-xs text-slate-400 hover:text-indigo-400 block transition-colors">🛠 GitHub</a>
+                                    <h3 class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3">${esc(t.labels.contact)}</h3>
+                                    <a href="mailto:${esc(email)}" class="text-xs text-slate-300 hover:text-indigo-400 block mb-1 transition-colors">📧 ${esc(email)}</a>
+                                    <!-- 3. Secure External Links (rel="noopener noreferrer") -->
+                                    <a href="https://${esc(CV_DATA.contact.linkedin)}" target="_blank" rel="noopener noreferrer" class="text-xs text-slate-400 hover:text-indigo-400 block mb-1 transition-colors">🔗 LinkedIn</a>
+                                    <a href="https://${esc(CV_DATA.contact.github)}" target="_blank" rel="noopener noreferrer" class="text-xs text-slate-400 hover:text-indigo-400 block transition-colors">🛠 GitHub</a>
                                 </div>
                                 <div>
-                                    <h3 class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3">${t.labels.skills}</h3>
+                                    <h3 class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3">${esc(t.labels.skills)}</h3>
                                     <div class="flex flex-wrap gap-1">
-                                        ${CV_DATA.skills.map(s => `<span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded-md text-[9px] border border-white/5 transition-all hover:border-indigo-500/50">${s}</span>`).join('')}
+                                        ${CV_DATA.skills.map(s => `<span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded-md text-[9px] border border-white/5 transition-all hover:border-indigo-500/50">${esc(s)}</span>`).join('')}
                                     </div>
                                 </div>
                             </div>
@@ -227,20 +249,20 @@
                         <div class="max-w-4xl mx-auto p-6 md:p-16 lg:p-20">
                             <div class="fade-in">
                                 <header class="mb-16">
-                                    <h1 class="text-4xl md:text-6xl font-black text-slate-900 dark:text-white mb-4 tracking-tight">${CV_DATA.name}</h1>
-                                    <p class="text-xl md:text-2xl text-indigo-600 dark:text-indigo-400 font-bold mb-3">${t.title}</p>
-                                    <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs text-slate-500 font-medium">📍 ${t.location}</span>
+                                    <h1 class="text-4xl md:text-6xl font-black text-slate-900 dark:text-white mb-4 tracking-tight">${esc(CV_DATA.name)}</h1>
+                                    <p class="text-xl md:text-2xl text-indigo-600 dark:text-indigo-400 font-bold mb-3">${esc(t.title)}</p>
+                                    <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs text-slate-500 font-medium">📍 ${esc(t.location)}</span>
                                 </header>
 
                                 <section class="mb-16">
                                     <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center gap-3">
-                                        <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">01</span> ${t.labels.summary}
+                                        <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">01</span> ${esc(t.labels.summary)}
                                     </h2>
                                     <ul class="space-y-4">
                                         ${t.summary.map(s => `
                                             <li class="flex items-start gap-4 text-slate-600 dark:text-slate-300 leading-relaxed">
                                                 <span class="w-2.5 h-2.5 mt-2 rounded-full bg-indigo-600 ring-2 ring-indigo-100 dark:ring-indigo-900/30 shrink-0 shadow-sm"></span>
-                                                ${s}
+                                                ${esc(s)}
                                             </li>
                                         `).join('')}
                                     </ul>
@@ -248,7 +270,7 @@
 
                                 <section class="mb-16">
                                     <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center gap-3">
-                                        <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">02</span> ${t.labels.experience}
+                                        <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">02</span> ${esc(t.labels.experience)}
                                     </h2>
                                     <div class="space-y-12">
                                         ${CV_DATA.experience.map(e => `
@@ -256,14 +278,14 @@
                                                 <div class="absolute -left-1.5 top-0 w-3 h-3 rounded-full bg-indigo-600 ring-4 ring-white dark:ring-slate-900"></div>
                                                 <div class="flex flex-col md:flex-row md:justify-between mb-2">
                                                     <h3 class="text-xl font-bold dark:text-white transition-colors">
-                                                        <a href="${e.url}" target="_blank" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">${e.company}</a>
+                                                        <a href="${esc(e.url)}" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">${esc(e.company)}</a>
                                                     </h3>
                                                     <span class="text-xs font-bold text-indigo-600 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 px-3 py-1 rounded-full">
-                                                        ${translatePeriod(e.period, currentLang)}
+                                                        ${esc(translatePeriod(e.period, currentLang))}
                                                     </span>
                                                 </div>
-                                                <p class="text-indigo-600 dark:text-indigo-400 font-bold text-sm mb-3">${e.role}</p>
-                                                ${e.description ? `<ul class="space-y-1">${e.description.map(d => `<li class="text-sm text-slate-400">• ${d}</li>`).join('')}</ul>` : ''}
+                                                <p class="text-indigo-600 dark:text-indigo-400 font-bold text-sm mb-3">${esc(e.role)}</p>
+                                                ${e.description ? `<ul class="space-y-1">${e.description.map(d => `<li class="text-sm text-slate-400">• ${esc(d)}</li>`).join('')}</ul>` : ''}
                                             </div>
                                         `).join('')}
                                     </div>
@@ -271,17 +293,17 @@
 
                                 <section class="mb-16">
                                     <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center gap-3">
-                                        <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">03</span> ${t.labels.certifications}
+                                        <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">03</span> ${esc(t.labels.certifications)}
                                     </h2>
                                     <div class="space-y-6">
                                         ${CV_DATA.certifications.map(cert => `
                                             <div class="bg-indigo-50 dark:bg-indigo-900/10 p-8 rounded-3xl border border-indigo-100 dark:border-indigo-900/50 shadow-sm">
-                                                <h3 class="text-lg font-bold text-slate-900 dark:text-white">${cert.name}</h3>
+                                                <h3 class="text-lg font-bold text-slate-900 dark:text-white">${esc(cert.name)}</h3>
                                                 <p class="text-indigo-600 dark:text-indigo-400 font-bold">
-                                                    <a href="${cert.providerUrl}" target="_blank" class="hover:text-indigo-800 dark:hover:text-indigo-300 hover:underline transition-colors">${cert.provider}</a>
+                                                    <a href="${esc(cert.providerUrl)}" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-800 dark:hover:text-indigo-300 hover:underline transition-colors">${esc(cert.provider)}</a>
                                                 </p>
-                                                <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">${cert.date}</p>
-                                                <p class="text-xs text-slate-400 dark:text-slate-500 mt-1 italic">${t.labels.certId} ${cert.id}</p>
+                                                <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">${esc(cert.date)}</p>
+                                                <p class="text-xs text-slate-400 dark:text-slate-500 mt-1 italic">${esc(t.labels.certId)} ${esc(cert.id)}</p>
                                             </div>
                                         `).join('')}
                                     </div>
@@ -289,37 +311,37 @@
 
                                 <section class="mb-16">
                                     <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center gap-3">
-                                        <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">04</span> ${t.labels.courses}
+                                        <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">04</span> ${esc(t.labels.courses)}
                                     </h2>
                                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                         ${displayedCourses.map(c => `
                                             <div class="bg-indigo-50 dark:bg-indigo-900/10 p-6 rounded-3xl border border-indigo-100 dark:border-indigo-900/50 shadow-sm transition-all hover:scale-[1.02] flex flex-col justify-between">
                                                 <div>
-                                                    <h4 class="text-sm font-bold text-slate-900 dark:text-white mb-2 leading-tight transition-colors">${c.name}</h4>
-                                                    <p class="text-indigo-600 dark:text-indigo-400 font-bold text-xs">${c.provider}</p>
+                                                    <h4 class="text-sm font-bold text-slate-900 dark:text-white mb-2 leading-tight transition-colors">${esc(c.name)}</h4>
+                                                    <p class="text-indigo-600 dark:text-indigo-400 font-bold text-xs">${esc(c.provider)}</p>
                                                 </div>
-                                                <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-3 font-medium uppercase tracking-wider">${c.date}</p>
+                                                <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-3 font-medium uppercase tracking-wider">${esc(c.date)}</p>
                                             </div>
                                         `).join('')}
                                     </div>
                                     <div class="mt-10 flex justify-center">
                                         <button onclick="toggleCourses()" class="px-10 py-3 border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400 rounded-full font-bold text-sm hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-400 dark:hover:text-slate-900 transition-all shadow-lg active:scale-95">
-                                            ${state.showAllCourses ? t.labels.showLess : `${t.labels.showMore} (${hiddenCount} more)`}
+                                            ${state.showAllCourses ? esc(t.labels.showLess) : `${esc(t.labels.showMore)} (${hiddenCount} more)`}
                                         </button>
                                     </div>
                                 </section>
 
                                 <section>
                                     <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center gap-3">
-                                        <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">05</span> ${t.labels.education}
+                                        <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">05</span> ${esc(t.labels.education)}
                                     </h2>
                                     ${CV_DATA.education.map(edu => `
                                         <div class="bg-indigo-50 dark:bg-indigo-900/10 p-8 rounded-3xl border border-indigo-100 dark:border-indigo-900/50 shadow-sm">
                                             <h3 class="text-lg font-bold text-slate-900 dark:text-white">
-                                                <a href="${edu.url}" target="_blank" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">${edu.school}</a>
+                                                <a href="${esc(edu.url)}" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">${esc(edu.school)}</a>
                                             </h3>
-                                            <p class="text-indigo-600 dark:text-indigo-400 font-bold">${state.lang === 'pl' ? edu.degree : 'Engineer, Computer Science'}</p>
-                                            <p class="text-sm text-slate-400 mt-2">${edu.period}</p>
+                                            <p class="text-indigo-600 dark:text-indigo-400 font-bold">${state.lang === 'pl' ? esc(edu.degree) : 'Engineer, Computer Science'}</p>
+                                            <p class="text-sm text-slate-400 mt-2">${esc(edu.period)}</p>
                                         </div>
                                     `).join('')}
                                 </section>
