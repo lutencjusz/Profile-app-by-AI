@@ -1,1 +1,0 @@
-// Ten plik nie jest używany. Cała logika aplikacji znajduje się w index.html.
