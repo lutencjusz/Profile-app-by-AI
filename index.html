@@ -21,6 +21,7 @@
             }
         }
     </script>
+<link rel="stylesheet" href="/index.css">
 </head>
 <body class="bg-gray-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300">
     <div id="root"></div>
@@ -55,16 +56,94 @@
                 linkedin: "linkedin.com/in/michal-sobieraj-2953962",
                 github: "github.com/lutencjusz"
             },
-            skills: ["Java", "AI", "JUnit", "Selenium", "Postman", "SQL", "Agile", "Business Analysis", "Defect Management", "RPA", "Jenkins", "Kafka"],
+            skills: ["Java", "AI", "JUnit", "Selenium", "Postman", "SQL", "Agile", "Business Analysis", "Defect Management", "RPA", "Jenkins", "Kafka", "DevOps", "QA", "Soap UI", "WebDriver", "JSON", "Jira", "BPMN", "BDD", "JavaScript", "HTML"],
             experience: [
-                { company: "T-Mobile", url: "https://www.t-mobile.pl", role: "Software Development Engineer in Test", period: "Lipiec 2022 - Obecnie" },
-                { company: "Sii Poland", url: "https://sii.pl", role: "Senior IT Business Analyst", period: "Listopad 2019 - Lipiec 2022" },
+                { 
+                    company: "T-Mobile", 
+                    url: "https://www.t-mobile.pl", 
+                    role: "Software Development Engineer in Test", 
+                    period: "Lipiec 2022 - Obecnie",
+                    description: {
+                        pl: [
+                            "strategia i rozszerzanie zakresu wykonywanych testów",
+                            "analiza i tworzenie nowych testów funkcjonalnych i wydajnościowych",
+                            "utrzymanie istniejących testów"
+                        ],
+                        en: [
+                            "strategy and extension of the scope of tests performed",
+                            "analysis and development of functional and performance tests",
+                            "maintenance of existing tests"
+                        ]
+                    }
+                },
+                { 
+                    company: "Sii Poland", 
+                    url: "https://sii.pl", 
+                    role: "Senior IT Business Analyst", 
+                    period: "Listopad 2019 - Lipiec 2022",
+                    description: {
+                        pl: [
+                            "przygotowywanie wymagań produktowych",
+                            "analiza i przygotowywanie procesów biznesowych",
+                            "wsparcie wdrażania rozwiązań in metodyce agile"
+                        ],
+                        en: [
+                            "preparation of product requirements",
+                            "analysis and preparation of business processes",
+                            "support for the implementation of solutions in agile"
+                        ]
+                    }
+                },
                 { 
                     company: "Polkomtel", 
                     url: "https://www.plus.pl",
                     role: "Senior Business Analyst", 
                     period: "Czerwiec 2009 - Listopad 2019",
-                    description: ["Preparing of estimates, opportunity study, feasibility study", "Estimating IT costs of new business products", "Coordinating and verifying subcontractors"]
+                    description: {
+                        pl: [
+                            "przygotowywanie kosztorysów, studium szans, studium wykonalności",
+                            "szacowanie kosztów IT nowych produktów biznesowych",
+                            "koordynacja i weryfikacja podwykonawców"
+                        ],
+                        en: [
+                            "preparing of estimates, opportunity study, feasibility study",
+                            "estimating IT costs of new business products",
+                            "coordinating and verifying subcontractors"
+                        ]
+                    }
+                },
+                {
+                    company: "Citi Handlowy",
+                    url: "https://www.citidirect.com",
+                    role: {
+                        pl: "Naczelnik / specjalista baz danych",
+                        en: "Bank manager / Database specialist"
+                    },
+                    period: "Styczeń 2005 - Wrzesień 2008",
+                    description: {
+                        pl: [
+                            "zapewnianie utrzymania aplikacji i rozwiązań IT dla biznesu"
+                        ],
+                        en: [
+                            "providing maintenance of applications and IT solutions for Businesses"
+                        ]
+                    }
+                },
+                {
+                    company: "Siemens",
+                    url: "https://www.siemens.com",
+                    role: "IT&T Delivery Manager / Project Manager",
+                    period: "Październik 1999 - Listopad 2004",
+                    description: {
+                        pl: [
+                            "utrzymywanie i rozwój kontraktów outsourcingowych IT dla usług IT&T",
+                            "wdrażanie rozwiązań IT wspierających procesy biznesowe HelpDesk; zarządzanie sekcją deweloperską"
+                        ],
+                        en: [
+                            "maintenance and progress IT outsourcing contracts for IT&T services",
+                            "implementation of IT solutions that support business processes of HelpDesk; leading of developer section"
+                        ]
+                    }
                 }
             ],
             certifications: [
@@ -112,6 +191,7 @@
         let state = {
             isDarkMode: localStorage.getItem('theme') === 'dark',
             showAllCourses: false,
+            showAllExperience: false,
             lang: localStorage.getItem('lang') || 'pl'
         };
 
@@ -130,13 +210,11 @@
                     showLess: "Pokaż mniej",
                     contact: "Kontakt",
                     skills: "UMIEJĘTNOŚCI",
-                    certId: "Identyfikator poświadczenia No"
+                    certId: "Identyfikator poświadczenia No",
+                    more: "więcej"
                 },
                 summary: [
-                    "3+ lata doświadczenia w testach automatycznych (GUI, REST, SQL).",
-                    "9+ lat w estymowaniu kosztów IT dla sektora Telco.",
-                    "8+ lat zarządzania projektami w środowisku międzynarodowym.",
-                    "Ekspert procesów ITIL i analizy biznesowej."
+                    "Doświadczony tester automatyzujący, analityk i programista w środowiskach Agile. Dysponujący wieloletnim doświadczeniem w projektowaniu i wdrażaniu zautomatyzowanej infrastruktury testowej, optymalizacji wydajności testów, utrzymaniu istniejących testów automatycznych oraz współpracy z zespołami biznesowymi przy systemach o dużych wolumenach sprzedażowych. Głębokie zrozumienie procesów cyklu życia produktów oraz wytwórczych."
                 ]
             },
             en: {
@@ -152,13 +230,11 @@
                     showLess: "Show less",
                     contact: "Contact",
                     skills: "Top Skills",
-                    certId: "Credential ID No."
+                    certId: "Credential ID No.",
+                    more: "more"
                 },
                 summary: [
-                    "3+ years in automated testing (GUI, REST, SQL).",
-                    "9+ years in IT cost estimation for the Telco sector.",
-                    "8+ years of project management in international environments.",
-                    "Expert in ITIL processes and business analysis."
+                    "Experienced automation tester, analyst, and developer in Agile environments. Having many years of experience in designing and implementing automated test infrastructure, optimizing test performance, maintaining existing automated tests, and collaborating with business teams on high-volume sales systems. Deep understanding of product lifecycle and development processes."
                 ]
             }
         };
@@ -169,6 +245,9 @@
                 .replace('Lipiec', 'July')
                 .replace('Listopad', 'November')
                 .replace('Czerwiec', 'June')
+                .replace('Październik', 'October')
+                .replace('Styczeń', 'January')
+                .replace('Wrzesień', 'September')
                 .replace('Obecnie', 'Present');
         }
 
@@ -194,6 +273,30 @@
             const initialCount = 9;
             const displayedCourses = state.showAllCourses ? CV_DATA.courses : CV_DATA.courses.slice(0, initialCount);
             const hiddenCount = CV_DATA.courses.length - initialCount;
+
+            // Obliczanie doświadczenia
+            const expInitialCount = 3; 
+            const displayedExperience = state.showAllExperience ? CV_DATA.experience : CV_DATA.experience.slice(0, expInitialCount);
+            const hiddenExpCount = CV_DATA.experience.length - expInitialCount;
+
+            const renderExpItem = (e) => {
+                const localizedDesc = e.description ? (Array.isArray(e.description) ? e.description : e.description[currentLang]) : null;
+                const localizedRole = typeof e.role === 'object' ? e.role[currentLang] : e.role;
+                return `
+                <div class="relative pl-8 experience-card">
+                    <div class="absolute -left-1.5 top-0 w-3 h-3 rounded-full bg-indigo-600 ring-4 ring-white dark:ring-slate-900"></div>
+                    <div class="flex flex-col md:flex-row md:justify-between mb-2">
+                        <h3 class="text-xl font-bold dark:text-white transition-colors">
+                            <a href="${esc(e.url)}" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">${esc(e.company)}</a>
+                        </h3>
+                        <span class="text-xs font-bold text-indigo-600 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 px-3 py-1 rounded-full">
+                            ${esc(translatePeriod(e.period, currentLang))}
+                        </span>
+                    </div>
+                    <p class="text-indigo-600 dark:text-indigo-400 font-bold text-sm mb-3">${esc(localizedRole)}</p>
+                    ${localizedDesc ? `<ul class="space-y-1">${localizedDesc.map(d => `<li class="text-sm text-slate-500 dark:text-slate-400">• ${esc(d)}</li>`).join('')}</ul>` : ''}
+                </div>`;
+            };
 
             root.innerHTML = `
                 <div class="flex flex-col md:flex-row min-h-screen">
@@ -230,7 +333,6 @@
                                 <div>
                                     <h3 class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3">${esc(t.labels.contact)}</h3>
                                     <a href="mailto:${esc(email)}" class="text-xs text-slate-300 hover:text-indigo-400 block mb-1 transition-colors">📧 ${esc(email)}</a>
-                                    <!-- 3. Secure External Links (rel="noopener noreferrer") -->
                                     <a href="https://${esc(CV_DATA.contact.linkedin)}" target="_blank" rel="noopener noreferrer" class="text-xs text-slate-400 hover:text-indigo-400 block mb-1 transition-colors">🔗 LinkedIn</a>
                                     <a href="https://${esc(CV_DATA.contact.github)}" target="_blank" rel="noopener noreferrer" class="text-xs text-slate-400 hover:text-indigo-400 block transition-colors">🛠 GitHub</a>
                                 </div>
@@ -260,8 +362,7 @@
                                     </h2>
                                     <ul class="space-y-4">
                                         ${t.summary.map(s => `
-                                            <li class="flex items-start gap-4 text-slate-600 dark:text-slate-300 leading-relaxed">
-                                                <span class="w-2.5 h-2.5 mt-2 rounded-full bg-indigo-600 ring-2 ring-indigo-100 dark:ring-indigo-900/30 shrink-0 shadow-sm"></span>
+                                            <li class="text-slate-600 dark:text-slate-300 leading-relaxed">
                                                 ${esc(s)}
                                             </li>
                                         `).join('')}
@@ -273,21 +374,13 @@
                                         <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">02</span> ${esc(t.labels.experience)}
                                     </h2>
                                     <div class="space-y-12">
-                                        ${CV_DATA.experience.map(e => `
-                                            <div class="relative pl-8 experience-card">
-                                                <div class="absolute -left-1.5 top-0 w-3 h-3 rounded-full bg-indigo-600 ring-4 ring-white dark:ring-slate-900"></div>
-                                                <div class="flex flex-col md:flex-row md:justify-between mb-2">
-                                                    <h3 class="text-xl font-bold dark:text-white transition-colors">
-                                                        <a href="${esc(e.url)}" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">${esc(e.company)}</a>
-                                                    </h3>
-                                                    <span class="text-xs font-bold text-indigo-600 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 px-3 py-1 rounded-full">
-                                                        ${esc(translatePeriod(e.period, currentLang))}
-                                                    </span>
-                                                </div>
-                                                <p class="text-indigo-600 dark:text-indigo-400 font-bold text-sm mb-3">${esc(e.role)}</p>
-                                                ${e.description ? `<ul class="space-y-1">${e.description.map(d => `<li class="text-sm text-slate-400">• ${esc(d)}</li>`).join('')}</ul>` : ''}
-                                            </div>
-                                        `).join('')}
+                                        ${displayedExperience.map(renderExpItem).join('')}
+                                    </div>
+                                    
+                                    <div class="mt-10 flex justify-center">
+                                        <button onclick="toggleExperience()" class="px-10 py-3 border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400 rounded-full font-bold text-sm hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-400 dark:hover:text-slate-900 transition-all shadow-lg active:scale-95">
+                                            ${state.showAllExperience ? esc(t.labels.showLess) : `${esc(t.labels.showMore)} (${hiddenExpCount} ${esc(t.labels.more)})`}
+                                        </button>
                                     </div>
                                 </section>
 
@@ -326,7 +419,7 @@
                                     </div>
                                     <div class="mt-10 flex justify-center">
                                         <button onclick="toggleCourses()" class="px-10 py-3 border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400 rounded-full font-bold text-sm hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-400 dark:hover:text-slate-900 transition-all shadow-lg active:scale-95">
-                                            ${state.showAllCourses ? esc(t.labels.showLess) : `${esc(t.labels.showMore)} (${hiddenCount} more)`}
+                                            ${state.showAllCourses ? esc(t.labels.showLess) : `${esc(t.labels.showMore)} (${hiddenCount} ${esc(t.labels.more)})`}
                                         </button>
                                     </div>
                                 </section>
@@ -369,8 +462,14 @@
             render();
         };
 
+        window.toggleExperience = () => {
+            state.showAllExperience = !state.showAllExperience;
+            render();
+        };
+
         // Inicjalizacja
         render();
     </script>
+<script type="module" src="/index.tsx"></script>
 </body>
 </html>
