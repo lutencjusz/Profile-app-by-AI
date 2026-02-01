@@ -54,7 +54,8 @@
             nip: "5271279258",
             contact: {
                 linkedin: "linkedin.com/in/michal-sobieraj-2953962",
-                github: "github.com/lutencjusz"
+                github: "github.com/lutencjusz",
+                salesforce: "trailblazer.me/id/msobieraj4"
             },
             skills: ["Java", "AI", "JUnit", "Selenium", "Postman", "SQL", "Agile", "Business Analysis", "Defect Management", "RPA", "Jenkins", "Kafka", "DevOps", "QA", "Soap UI", "WebDriver", "JSON", "Jira", "BPMN", "BDD", "JavaScript", "HTML"],
             experience: [
@@ -159,10 +160,12 @@
                 { school: "Polsko-Japońska Akademia Technik Komputerowych", url: "https://pja.edu.pl", degree: "Inżynier Informatyki", period: "1998 - 2002" }
             ],
             courses: [
-                { name: "Hackathon during Tech Day 2025 – AI & Data Edition", provider: "T-Mobile", date: "15/10/2025" },
+                { name: "Hackathon during Tech Day 2025 – AI & Data Edition", provider: "T-Mobile (member of winner team)", date: "15/10/2025" },
                 { name: "Apache Kafka – od podstaw do zaawansowanej wiedzy – 5h", provider: "T-Mobile", date: "12/05/2024" },
                 { name: "CI/CD Jenkins dla testera/programisty w praktyce! – 5,5h", provider: "T-Mobile", date: "18/06/2023" },
                 { name: "Become 100% Confident RPA UiPath Developer – Build 8 Projects", provider: "T-Mobile", date: "10/04/2023" },
+                { name: "ISTQB Foundation – Sii Training Practice", provider: "Sii Poland", date: "27/05/2022" },
+                { name: "Cypress od podstaw – automatyzacja testów", provider: "Sii Poland", date: "10/05/2022" },
                 { name: "Postman od podstaw – testowanie REST API", provider: "Sii Poland", date: "18/04/2022" },
                 { name: "Akademia testera automatyzującego wave 1", provider: "T-Mobile", date: "18/10/2021" },
                 { name: "Tworzenie aplikacji w systemie Android", provider: "Sii Poland", date: "17/10/2021" },
@@ -174,7 +177,6 @@
                 { name: "UML for Analyst", provider: "Polkomtel", date: "10/2018" },
                 { name: "Angular/CLI – kompletny kurs od podstaw", provider: "Polkomtel", date: "23/02/2018" },
                 { name: "The George Washington University – PMI", provider: "Siemens", date: "1999–2003" },
-                { name: "ISTQB Foundation – Sii Training Practice", provider: "Sii Poland", date: "–" },
                 { name: "Modelowanie procesów biznesowych w UML i BPMN", provider: "Polkomtel", date: "–" },
                 { name: "Service Oriented Architecture (SOA) – introduction", provider: "Polkomtel", date: "–" },
                 { name: "Mind Mapping", provider: "Polkomtel", date: "–" },
@@ -320,13 +322,15 @@
                             </div>
                             
                             <div class="mb-10">
-                                <div class="flex items-center gap-3 px-4 py-4 rounded-2xl bg-indigo-600 shadow-xl text-white border border-indigo-400/30">
+                                <a href="https://www.biznes.gov.pl/pl/wyszukiwarka-firm/wpis/ceidg/A903CE9D-3982-4E4F-9390-9195AB0046F4" 
+                                   target="_blank" rel="noopener noreferrer"
+                                   class="flex items-center gap-3 px-4 py-4 rounded-2xl bg-indigo-600 shadow-xl text-white border border-indigo-400/30 hover:bg-indigo-700 transition-colors">
                                     <span class="text-xl">🚀</span>
                                     <div class="flex flex-col">
                                         <span class="font-bold tracking-tight">Sopim - ${esc(CV_DATA.name)}</span>
                                         <span class="text-[10px] font-medium opacity-80">NIP: ${esc(CV_DATA.nip)}</span>
                                     </div>
-                                </div>
+                                </a>
                             </div>
 
                             <div class="space-y-6 pt-6 border-t border-white/10">
@@ -334,7 +338,8 @@
                                     <h3 class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3">${esc(t.labels.contact)}</h3>
                                     <a href="mailto:${esc(email)}" class="text-xs text-slate-300 hover:text-indigo-400 block mb-1 transition-colors">📧 ${esc(email)}</a>
                                     <a href="https://${esc(CV_DATA.contact.linkedin)}" target="_blank" rel="noopener noreferrer" class="text-xs text-slate-400 hover:text-indigo-400 block mb-1 transition-colors">🔗 LinkedIn</a>
-                                    <a href="https://${esc(CV_DATA.contact.github)}" target="_blank" rel="noopener noreferrer" class="text-xs text-slate-400 hover:text-indigo-400 block transition-colors">🛠 GitHub</a>
+                                    <a href="https://${esc(CV_DATA.contact.github)}" target="_blank" rel="noopener noreferrer" class="text-xs text-slate-400 hover:text-indigo-400 block mb-1 transition-colors">🛠 GitHub</a>
+                                    <a href="https://${esc(CV_DATA.contact.salesforce)}" target="_blank" rel="noopener noreferrer" class="text-xs text-slate-400 hover:text-indigo-400 block transition-colors">☁️ Salesforce</a>
                                 </div>
                                 <div>
                                     <h3 class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3">${esc(t.labels.skills)}</h3>
