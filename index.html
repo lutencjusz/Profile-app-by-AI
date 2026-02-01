@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon-monogram-square-border.svg" type="image/svg+xml"/>
+    <link rel="icon" href="favicon-monogram-square-border.svg" type="image/svg+xml" sizes="32x32"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon-monogram-square-border.svg" type="image/svg+xml"/>
     <title>Sopim | Michał Sobieraj - Professional Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="data.dat"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script>
         tailwind.config = {
@@ -24,314 +28,314 @@
     </script>
 </head>
 <body class="bg-gray-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300">
-    <div id="root"></div>
-    <script>
-        // --- ZABEZPIECZENIA ---
-        
-        /**
-         * 1. XSS Protection: Escaping dynamic content.
-         */
-        const esc = (str) => {
-            if (!str) return "";
-            const temp = document.createElement('div');
-            temp.textContent = str;
-            return temp.innerHTML;
-        };
+<div id="root"></div>
+<script>
+    // --- ZABEZPIECZENIA ---
 
-        /**
-         * 2. Email Obfuscation: Prevents basic scraping bots.
-         */
-        const getEmailAddress = () => {
-            const u = "michal.sobieraj";
-            const d = "sopim.pl";
-            return `${u}@${d}`;
-        };
+    /**
+     * 1. XSS Protection: Escaping dynamic content.
+     */
+    const esc = (str) => {
+        if (!str) return "";
+        const temp = document.createElement('div');
+        temp.textContent = str;
+        return temp.innerHTML;
+    };
 
-        // --- STAN APLIKACJI ---
-        let state = {
-            isDarkMode: localStorage.getItem('theme') === 'dark',
-            showAllCourses: false,
-            showAllExperience: false,
-            lang: localStorage.getItem('lang') || 'pl'
-        };
+    /**
+     * 2. Email Obfuscation: Prevents basic scraping bots.
+     */
+    const getEmailAddress = () => {
+        const u = "michal.sobieraj";
+        const d = "sopim.pl";
+        return `${u}@${d}`;
+    };
 
-        // --- TŁUMACZENIA ---
-        const UI = {
-            pl: {
-                title: "SDET (Software Development Engineer in Test) dla T-Mobile Polska",
-                location: "Warszawa, Mazowieckie, Polska",
-                labels: {
-                    summary: "Podsumowanie",
-                    experience: "Doświadczenie",
-                    certifications: "Certyfikaty",
-                    courses: "Kursy",
-                    education: "Edukacja",
-                    showMore: "Pokaż wszystkie",
-                    showLess: "Pokaż mniej",
-                    contact: "Kontakt",
-                    skills: "UMIEJĘTNOŚCI",
-                    certId: "Identyfikator poświadczenia No",
-                    more: "więcej"
-                },
-                summary: [
-                    "Doświadczony tester automatyzujący, analityk i programista działający w zespołach Agile. Posiada wieloletnie doświadczenie w projektowaniu i wdrażaniu zautomatyzowanej infrastruktury testowej, optymalizacji wydajności testowania oraz utrzymaniu i rozwoju istniejących rozwiązań automatyzujących. Od wielu lat współpracuje z zespołami biznesowymi przy realizacji systemów o dużych wolumenach sprzedażowych. Charakteryzuje się dogłębnym zrozumieniem cyklu życia produktu oraz procesów wytwórczych oprogramowania."
-                ]
+    // --- STAN APLIKACJI ---
+    let state = {
+        isDarkMode: localStorage.getItem('theme') === 'dark',
+        showAllCourses: false,
+        showAllExperience: false,
+        lang: localStorage.getItem('lang') || 'pl'
+    };
+
+    // --- TŁUMACZENIA ---
+    const UI = {
+        pl: {
+            title: "SDET (Software Development Engineer in Test) dla T-Mobile Polska",
+            location: "Warszawa, Mazowieckie, Polska",
+            labels: {
+                summary: "Podsumowanie",
+                experience: "Doświadczenie",
+                certifications: "Certyfikaty",
+                courses: "Kursy",
+                education: "Edukacja",
+                showMore: "Pokaż wszystkie",
+                showLess: "Pokaż mniej",
+                contact: "Kontakt",
+                skills: "UMIEJĘTNOŚCI",
+                certId: "Identyfikator poświadczenia No",
+                more: "więcej"
             },
-            en: {
-                title: "SDET (Software Development Engineer in Test) for T-Mobile Poland",
-                location: "Warsaw, Mazowieckie, Poland",
-                labels: {
-                    summary: "Professional Summary",
-                    experience: "Experience",
-                    certifications: "Certifications",
-                    courses: "Courses",
-                    education: "Education",
-                    showMore: "Show all",
-                    showLess: "Show less",
-                    contact: "Contact",
-                    skills: "Top Skills",
-                    certId: "Credential ID No.",
-                    more: "more"
-                },
-                summary: [
-                    "Experienced test automation engineer, analyst, and developer working in Agile teams. Possesses extensive experience in designing and implementing automated testing frameworks, improving test efficiency, and maintaining and enhancing existing test automation solutions. Has collaborated closely with business teams for many years on the delivery of high-volume sales systems. Demonstrates deep understanding of the product lifecycle and software development processes."
-                ]
-            }
+            summary: [
+                "Doświadczony tester automatyzujący, analityk i programista działający w zespołach Agile. Posiada wieloletnie doświadczenie w projektowaniu i wdrażaniu zautomatyzowanej infrastruktury testowej, optymalizacji wydajności testowania oraz utrzymaniu i rozwoju istniejących rozwiązań automatyzujących. Od wielu lat współpracuje z zespołami biznesowymi przy realizacji systemów o dużych wolumenach sprzedażowych. Charakteryzuje się dogłębnym zrozumieniem cyklu życia produktu oraz procesów wytwórczych oprogramowania."
+            ]
+        },
+        en: {
+            title: "SDET (Software Development Engineer in Test) for T-Mobile Poland",
+            location: "Warsaw, Mazowieckie, Poland",
+            labels: {
+                summary: "Professional Summary",
+                experience: "Experience",
+                certifications: "Certifications",
+                courses: "Courses",
+                education: "Education",
+                showMore: "Show all",
+                showLess: "Show less",
+                contact: "Contact",
+                skills: "Top Skills",
+                certId: "Credential ID No.",
+                more: "more"
+            },
+            summary: [
+                "Experienced test automation engineer, analyst, and developer working in Agile teams. Possesses extensive experience in designing and implementing automated testing frameworks, improving test efficiency, and maintaining and enhancing existing test automation solutions. Has collaborated closely with business teams for many years on the delivery of high-volume sales systems. Demonstrates deep understanding of the product lifecycle and software development processes."
+            ]
+        }
+    };
+
+    function translatePeriod(period, lang) {
+        if (lang === 'pl') return period;
+        return period
+            .replace('Lipiec', 'July')
+            .replace('Listopad', 'November')
+            .replace('Czerwiec', 'June')
+            .replace('Październik', 'October')
+            .replace('Styczeń', 'January')
+            .replace('Wrzesień', 'September')
+            .replace('Obecnie', 'Present');
+    }
+
+    function updateTheme() {
+        const html = document.documentElement;
+        if (state.isDarkMode) {
+            html.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            html.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }
+    }
+
+    function render() {
+        const root = document.getElementById('root');
+        updateTheme();
+        const currentLang = state.lang;
+        const t = UI[currentLang];
+        const email = getEmailAddress();
+
+        // Obliczanie kursów do wyświetlenia
+        const initialCount = 9;
+        const displayedCourses = state.showAllCourses ? CV_DATA.courses : CV_DATA.courses.slice(0, initialCount);
+        const hiddenCount = CV_DATA.courses.length - initialCount;
+
+        // Obliczanie doświadczenia
+        const expInitialCount = 3;
+        const displayedExperience = state.showAllExperience ? CV_DATA.experience : CV_DATA.experience.slice(0, expInitialCount);
+        const hiddenExpCount = CV_DATA.experience.length - expInitialCount;
+
+        const renderExpItem = (e) => {
+            const localizedDesc = e.description ? (Array.isArray(e.description) ? e.description : e.description[currentLang]) : null;
+            const localizedRole = typeof e.role === 'object' ? e.role[currentLang] : e.role;
+            return `
+            <div class="relative pl-8 experience-card">
+                <div class="absolute -left-1.5 top-0 w-3 h-3 rounded-full bg-indigo-600 ring-4 ring-white dark:ring-slate-900"></div>
+                <div class="flex flex-col md:flex-row md:justify-between mb-2">
+                    <h3 class="text-xl font-bold dark:text-white transition-colors">
+                        <a href="${esc(e.url)}" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">${esc(e.company)}</a>
+                    </h3>
+                    <span class="text-xs font-bold text-indigo-600 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 px-3 py-1 rounded-full">
+                        ${esc(translatePeriod(e.period, currentLang))}
+                    </span>
+                </div>
+                <p class="text-indigo-600 dark:text-indigo-400 font-bold text-sm mb-3">${esc(localizedRole)}</p>
+                ${localizedDesc ? `<ul class="space-y-1">${localizedDesc.map(d => `<li class="text-sm text-slate-500 dark:text-slate-400">• ${esc(d)}</li>`).join('')}</ul>` : ''}
+            </div>`;
         };
 
-        function translatePeriod(period, lang) {
-            if (lang === 'pl') return period;
-            return period
-                .replace('Lipiec', 'July')
-                .replace('Listopad', 'November')
-                .replace('Czerwiec', 'June')
-                .replace('Październik', 'October')
-                .replace('Styczeń', 'January')
-                .replace('Wrzesień', 'September')
-                .replace('Obecnie', 'Present');
-        }
-
-        function updateTheme() {
-            const html = document.documentElement;
-            if (state.isDarkMode) {
-                html.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                html.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-            }
-        }
-
-        function render() {
-            const root = document.getElementById('root');
-            updateTheme();
-            const currentLang = state.lang;
-            const t = UI[currentLang];
-            const email = getEmailAddress();
-
-            // Obliczanie kursów do wyświetlenia
-            const initialCount = 9;
-            const displayedCourses = state.showAllCourses ? CV_DATA.courses : CV_DATA.courses.slice(0, initialCount);
-            const hiddenCount = CV_DATA.courses.length - initialCount;
-
-            // Obliczanie doświadczenia
-            const expInitialCount = 3; 
-            const displayedExperience = state.showAllExperience ? CV_DATA.experience : CV_DATA.experience.slice(0, expInitialCount);
-            const hiddenExpCount = CV_DATA.experience.length - expInitialCount;
-
-            const renderExpItem = (e) => {
-                const localizedDesc = e.description ? (Array.isArray(e.description) ? e.description : e.description[currentLang]) : null;
-                const localizedRole = typeof e.role === 'object' ? e.role[currentLang] : e.role;
-                return `
-                <div class="relative pl-8 experience-card">
-                    <div class="absolute -left-1.5 top-0 w-3 h-3 rounded-full bg-indigo-600 ring-4 ring-white dark:ring-slate-900"></div>
-                    <div class="flex flex-col md:flex-row md:justify-between mb-2">
-                        <h3 class="text-xl font-bold dark:text-white transition-colors">
-                            <a href="${esc(e.url)}" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">${esc(e.company)}</a>
-                        </h3>
-                        <span class="text-xs font-bold text-indigo-600 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-900/30 px-3 py-1 rounded-full">
-                            ${esc(translatePeriod(e.period, currentLang))}
-                        </span>
-                    </div>
-                    <p class="text-indigo-600 dark:text-indigo-400 font-bold text-sm mb-3">${esc(localizedRole)}</p>
-                    ${localizedDesc ? `<ul class="space-y-1">${localizedDesc.map(d => `<li class="text-sm text-slate-500 dark:text-slate-400">• ${esc(d)}</li>`).join('')}</ul>` : ''}
-                </div>`;
-            };
-
-            root.innerHTML = `
-                <div class="flex flex-col md:flex-row min-h-screen">
-                    <!-- SIDEBAR -->
-                    <aside class="w-full md:w-80 bg-[#2C3E50] dark:bg-slate-950 text-slate-100 flex flex-col shrink-0 md:sticky md:top-0 md:h-screen overflow-y-auto transition-colors duration-300">
-                        <div class="p-8">
-                            <div class="flex justify-between items-center mb-6">
-                                <div class="flex bg-slate-800 p-1 rounded-lg border border-white/10">
-                                    <button onclick="setLang('pl')" class="px-3 py-1 rounded-md text-[10px] font-bold ${state.lang === 'pl' ? 'bg-indigo-600' : 'text-slate-500'}">PL</button>
-                                    <button onclick="setLang('en')" class="px-3 py-1 rounded-md text-[10px] font-bold ${state.lang === 'en' ? 'bg-indigo-600' : 'text-slate-500'}">EN</button>
-                                </div>
-                                <button onclick="toggleTheme()" class="p-2.5 rounded-full bg-slate-800 border border-white/10 hover:bg-white/10 transition-all text-lg">
-                                    ${state.isDarkMode ? '☀️' : '🌙'}
-                                </button>
+        root.innerHTML = `
+            <div class="flex flex-col md:flex-row min-h-screen">
+                <!-- SIDEBAR -->
+                <aside class="w-full md:w-80 bg-[#2C3E50] dark:bg-slate-950 text-slate-100 flex flex-col shrink-0 md:sticky md:top-0 md:h-screen overflow-y-auto transition-colors duration-300">
+                    <div class="p-8">
+                        <div class="flex justify-between items-center mb-6">
+                            <div class="flex bg-slate-800 p-1 rounded-lg border border-white/10">
+                                <button onclick="setLang('pl')" class="px-3 py-1 rounded-md text-[10px] font-bold ${state.lang === 'pl' ? 'bg-indigo-600' : 'text-slate-500'}">PL</button>
+                                <button onclick="setLang('en')" class="px-3 py-1 rounded-md text-[10px] font-bold ${state.lang === 'en' ? 'bg-indigo-600' : 'text-slate-500'}">EN</button>
                             </div>
+                            <button onclick="toggleTheme()" class="p-2.5 rounded-full bg-slate-800 border border-white/10 hover:bg-white/10 transition-all text-lg">
+                                ${state.isDarkMode ? '☀️' : '🌙'}
+                            </button>
+                        </div>
 
-                            <div class="mb-8 flex justify-center">
-                                <div class="w-32 h-32 rounded-full border-4 border-white/20 overflow-hidden shadow-2xl bg-slate-800 ring-4 ring-indigo-500/20">
-                                    <img src="./IMG_5595.JPG" alt="${esc(CV_DATA.name)}" class="w-full h-full object-cover" onerror="this.src='https://media.licdn.com/dms/image/v2/C5603AQHs8aSrhMUqMw/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1516262093371?e=1771459200&v=beta&t=2gcJzbQUAbbE72mn2RodcLwqca2SSuyAP5jSyqvsV4s'"/>
-                                </div>
+                        <div class="mb-8 flex justify-center">
+                            <div class="w-32 h-32 rounded-full border-4 border-white/20 overflow-hidden shadow-2xl bg-slate-800 ring-4 ring-indigo-500/20">
+                                <img src="./IMG_5595.JPG" alt="${esc(CV_DATA.name)}" class="w-full h-full object-cover" onerror="this.src='https://media.licdn.com/dms/image/v2/C5603AQHs8aSrhMUqMw/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1516262093371?e=1771459200&v=beta&t=2gcJzbQUAbbE72mn2RodcLwqca2SSuyAP5jSyqvsV4s'"/>
                             </div>
-                            
-                            <div class="mb-10">
-                                <a href="https://www.biznes.gov.pl/pl/wyszukiwarka-firm/wpis/ceidg/A903CE9D-3982-4E4F-9390-9195AB0046F4" 
-                                   target="_blank" rel="noopener noreferrer"
-                                   class="flex items-center gap-3 px-4 py-4 rounded-2xl bg-indigo-600 shadow-xl text-white border border-indigo-400/30 hover:bg-indigo-700 transition-colors">
-                                    <span class="text-xl">🚀</span>
-                                    <div class="flex flex-col">
-                                        <span class="font-bold tracking-tight">Sopim - ${esc(CV_DATA.name)}</span>
-                                        <span class="text-[10px] font-medium opacity-80">NIP: ${esc(CV_DATA.nip)}</span>
-                                    </div>
-                                </a>
-                            </div>
+                        </div>
 
-                            <div class="space-y-6 pt-6 border-t border-white/10">
-                                <div>
-                                    <h3 class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3">${esc(t.labels.contact)}</h3>
-                                    <a href="mailto:${esc(email)}" class="text-xs text-slate-300 hover:text-indigo-400 block mb-1 transition-colors">📧 ${esc(email)}</a>
-                                    <a href="https://${esc(CV_DATA.contact.linkedin)}" target="_blank" rel="noopener noreferrer" class="text-xs text-slate-400 hover:text-indigo-400 block mb-1 transition-colors">🔗 LinkedIn</a>
-                                    <a href="https://${esc(CV_DATA.contact.github)}" target="_blank" rel="noopener noreferrer" class="text-xs text-slate-400 hover:text-indigo-400 block mb-1 transition-colors">🛠 GitHub</a>
-                                    <a href="https://${esc(CV_DATA.contact.salesforce)}" target="_blank" rel="noopener noreferrer" class="text-xs text-slate-400 hover:text-indigo-400 block transition-colors">☁️ Salesforce</a>
+                        <div class="mb-10">
+                            <a href="https://www.biznes.gov.pl/pl/wyszukiwarka-firm/wpis/ceidg/A903CE9D-3982-4E4F-9390-9195AB0046F4"
+                               target="_blank" rel="noopener noreferrer"
+                               class="flex items-center gap-3 px-4 py-4 rounded-2xl bg-indigo-600 shadow-xl text-white border border-indigo-400/30 hover:bg-indigo-700 transition-colors">
+                                <span class="text-xl">🚀</span>
+                                <div class="flex flex-col">
+                                    <span class="font-bold tracking-tight">Sopim - ${esc(CV_DATA.name)}</span>
+                                    <span class="text-[10px] font-medium opacity-80">NIP: ${esc(CV_DATA.nip)}</span>
                                 </div>
-                                <div>
-                                    <h3 class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3">${esc(t.labels.skills)}</h3>
-                                    <div class="flex flex-wrap gap-1">
-                                        ${CV_DATA.skills.map(s => `<span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded-md text-[9px] border border-white/5 transition-all hover:border-indigo-500/50">${esc(s)}</span>`).join('')}
-                                    </div>
+                            </a>
+                        </div>
+
+                        <div class="space-y-6 pt-6 border-t border-white/10">
+                            <div>
+                                <h3 class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3">${esc(t.labels.contact)}</h3>
+                                <a href="mailto:${esc(email)}" class="text-xs text-slate-300 hover:text-indigo-400 block mb-1 transition-colors">📧 ${esc(email)}</a>
+                                <a href="https://${esc(CV_DATA.contact.linkedin)}" target="_blank" rel="noopener noreferrer" class="text-xs text-slate-400 hover:text-indigo-400 block mb-1 transition-colors">🔗 LinkedIn</a>
+                                <a href="https://${esc(CV_DATA.contact.github)}" target="_blank" rel="noopener noreferrer" class="text-xs text-slate-400 hover:text-indigo-400 block mb-1 transition-colors">🛠 GitHub</a>
+                                <a href="https://${esc(CV_DATA.contact.salesforce)}" target="_blank" rel="noopener noreferrer" class="text-xs text-slate-400 hover:text-indigo-400 block transition-colors">☁️ Salesforce</a>
+                            </div>
+                            <div>
+                                <h3 class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3">${esc(t.labels.skills)}</h3>
+                                <div class="flex flex-wrap gap-1">
+                                    ${CV_DATA.skills.map(s => `<span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded-md text-[9px] border border-white/5 transition-all hover:border-indigo-500/50">${esc(s)}</span>`).join('')}
                                 </div>
                             </div>
                         </div>
-                    </aside>
+                    </div>
+                </aside>
 
-                    <!-- MAIN CONTENT -->
-                    <main class="flex-1 bg-white dark:bg-slate-900 overflow-y-auto transition-colors duration-300">
-                        <div class="max-w-4xl mx-auto p-6 md:p-16 lg:p-20">
-                            <div class="fade-in">
-                                <header class="mb-16">
-                                    <h1 class="text-4xl md:text-6xl font-black text-slate-900 dark:text-white mb-4 tracking-tight">${esc(CV_DATA.name)}</h1>
-                                    <p class="text-xl md:text-2xl text-indigo-600 dark:text-indigo-400 font-bold mb-3">${esc(t.title)}</p>
-                                    <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs text-slate-500 font-medium">📍 ${esc(t.location)}</span>
-                                </header>
+                <!-- MAIN CONTENT -->
+                <main class="flex-1 bg-white dark:bg-slate-900 overflow-y-auto transition-colors duration-300">
+                    <div class="max-w-4xl mx-auto p-6 md:p-16 lg:p-20">
+                        <div class="fade-in">
+                            <header class="mb-16">
+                                <h1 class="text-4xl md:text-6xl font-black text-slate-900 dark:text-white mb-4 tracking-tight">${esc(CV_DATA.name)}</h1>
+                                <p class="text-xl md:text-2xl text-indigo-600 dark:text-indigo-400 font-bold mb-3">${esc(t.title)}</p>
+                                <span class="bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full text-xs text-slate-500 font-medium">📍 ${esc(t.location)}</span>
+                            </header>
 
-                                <section class="mb-16">
-                                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center gap-3">
-                                        <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">01</span> ${esc(t.labels.summary)}
-                                    </h2>
-                                    <ul class="space-y-4">
-                                        ${t.summary.map(s => `
-                                            <li class="text-slate-600 dark:text-slate-300 leading-relaxed">
-                                                ${esc(s)}
-                                            </li>
-                                        `).join('')}
-                                    </ul>
-                                </section>
+                            <section class="mb-16">
+                                <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center gap-3">
+                                    <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">01</span> ${esc(t.labels.summary)}
+                                </h2>
+                                <ul class="space-y-4">
+                                    ${t.summary.map(s => `
+                                        <li class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                                            ${esc(s)}
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            </section>
 
-                                <section class="mb-16">
-                                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center gap-3">
-                                        <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">02</span> ${esc(t.labels.experience)}
-                                    </h2>
-                                    <div class="space-y-12">
-                                        ${displayedExperience.map(renderExpItem).join('')}
-                                    </div>
-                                    
-                                    <div class="mt-10 flex justify-center">
-                                        <button onclick="toggleExperience()" class="px-10 py-3 border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400 rounded-full font-bold text-sm hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-400 dark:hover:text-slate-900 transition-all shadow-lg active:scale-95">
-                                            ${state.showAllExperience ? esc(t.labels.showLess) : `${esc(t.labels.showMore)} (${hiddenExpCount} ${esc(t.labels.more)})`}
-                                        </button>
-                                    </div>
-                                </section>
+                            <section class="mb-16">
+                                <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center gap-3">
+                                    <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">02</span> ${esc(t.labels.experience)}
+                                </h2>
+                                <div class="space-y-12">
+                                    ${displayedExperience.map(renderExpItem).join('')}
+                                </div>
 
-                                <section class="mb-16">
-                                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center gap-3">
-                                        <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">03</span> ${esc(t.labels.certifications)}
-                                    </h2>
-                                    <div class="space-y-6">
-                                        ${CV_DATA.certifications.map(cert => `
-                                            <div class="bg-indigo-50 dark:bg-indigo-900/10 p-8 rounded-3xl border border-indigo-100 dark:border-indigo-900/50 shadow-sm">
-                                                <h3 class="text-lg font-bold text-slate-900 dark:text-white">${esc(cert.name)}</h3>
-                                                <p class="text-indigo-600 dark:text-indigo-400 font-bold">
-                                                    <a href="${esc(cert.providerUrl)}" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-800 dark:hover:text-indigo-300 hover:underline transition-colors">${esc(cert.provider)}</a>
-                                                </p>
-                                                <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">${esc(cert.date)}</p>
-                                                <p class="text-xs text-slate-400 dark:text-slate-500 mt-1 italic">${esc(t.labels.certId)} ${esc(cert.id)}</p>
-                                            </div>
-                                        `).join('')}
-                                    </div>
-                                </section>
+                                <div class="mt-10 flex justify-center">
+                                    <button onclick="toggleExperience()" class="px-10 py-3 border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400 rounded-full font-bold text-sm hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-400 dark:hover:text-slate-900 transition-all shadow-lg active:scale-95">
+                                        ${state.showAllExperience ? esc(t.labels.showLess) : `${esc(t.labels.showMore)} (${hiddenExpCount} ${esc(t.labels.more)})`}
+                                    </button>
+                                </div>
+                            </section>
 
-                                <section class="mb-16">
-                                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center gap-3">
-                                        <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">04</span> ${esc(t.labels.courses)}
-                                    </h2>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                        ${displayedCourses.map(c => `
-                                            <div class="bg-indigo-50 dark:bg-indigo-900/10 p-6 rounded-3xl border border-indigo-100 dark:border-indigo-900/50 shadow-sm transition-all hover:scale-[1.02] flex flex-col justify-between">
-                                                <div>
-                                                    <h4 class="text-sm font-bold text-slate-900 dark:text-white mb-2 leading-tight transition-colors">${esc(c.name)}</h4>
-                                                    <p class="text-indigo-600 dark:text-indigo-400 font-bold text-xs">${esc(c.provider)}</p>
-                                                </div>
-                                                <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-3 font-medium uppercase tracking-wider">${esc(c.date)}</p>
-                                            </div>
-                                        `).join('')}
-                                    </div>
-                                    <div class="mt-10 flex justify-center">
-                                        <button onclick="toggleCourses()" class="px-10 py-3 border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400 rounded-full font-bold text-sm hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-400 dark:hover:text-slate-900 transition-all shadow-lg active:scale-95">
-                                            ${state.showAllCourses ? esc(t.labels.showLess) : `${esc(t.labels.showMore)} (${hiddenCount} ${esc(t.labels.more)})`}
-                                        </button>
-                                    </div>
-                                </section>
-
-                                <section>
-                                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center gap-3">
-                                        <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">05</span> ${esc(t.labels.education)}
-                                    </h2>
-                                    ${CV_DATA.education.map(edu => `
+                            <section class="mb-16">
+                                <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center gap-3">
+                                    <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">03</span> ${esc(t.labels.certifications)}
+                                </h2>
+                                <div class="space-y-6">
+                                    ${CV_DATA.certifications.map(cert => `
                                         <div class="bg-indigo-50 dark:bg-indigo-900/10 p-8 rounded-3xl border border-indigo-100 dark:border-indigo-900/50 shadow-sm">
-                                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">
-                                                <a href="${esc(edu.url)}" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">${esc(edu.school)}</a>
-                                            </h3>
-                                            <p class="text-indigo-600 dark:text-indigo-400 font-bold">${state.lang === 'pl' ? esc(edu.degree) : 'Engineer, Computer Science'}</p>
-                                            <p class="text-sm text-slate-400 mt-2">${esc(edu.period)}</p>
+                                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">${esc(cert.name)}</h3>
+                                            <p class="text-indigo-600 dark:text-indigo-400 font-bold">
+                                                <a href="${esc(cert.providerUrl)}" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-800 dark:hover:text-indigo-300 hover:underline transition-colors">${esc(cert.provider)}</a>
+                                            </p>
+                                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">${esc(cert.date)}</p>
+                                            <p class="text-xs text-slate-400 dark:text-slate-500 mt-1 italic">${esc(t.labels.certId)} ${esc(cert.id)}</p>
                                         </div>
                                     `).join('')}
-                                </section>
-                            </div>
+                                </div>
+                            </section>
+
+                            <section class="mb-16">
+                                <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center gap-3">
+                                    <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">04</span> ${esc(t.labels.courses)}
+                                </h2>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    ${displayedCourses.map(c => `
+                                        <div class="bg-indigo-50 dark:bg-indigo-900/10 p-6 rounded-3xl border border-indigo-100 dark:border-indigo-900/50 shadow-sm transition-all hover:scale-[1.02] flex flex-col justify-between">
+                                            <div>
+                                                <h4 class="text-sm font-bold text-slate-900 dark:text-white mb-2 leading-tight transition-colors">${esc(c.name)}</h4>
+                                                <p class="text-indigo-600 dark:text-indigo-400 font-bold text-xs">${esc(c.provider)}</p>
+                                            </div>
+                                            <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-3 font-medium uppercase tracking-wider">${esc(c.date)}</p>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <div class="mt-10 flex justify-center">
+                                    <button onclick="toggleCourses()" class="px-10 py-3 border-2 border-indigo-600 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400 rounded-full font-bold text-sm hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-400 dark:hover:text-slate-900 transition-all shadow-lg active:scale-95">
+                                        ${state.showAllCourses ? esc(t.labels.showLess) : `${esc(t.labels.showMore)} (${hiddenCount} ${esc(t.labels.more)})`}
+                                    </button>
+                                </div>
+                            </section>
+
+                            <section>
+                                <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-8 flex items-center gap-3">
+                                    <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-indigo-500/20">05</span> ${esc(t.labels.education)}
+                                </h2>
+                                ${CV_DATA.education.map(edu => `
+                                    <div class="bg-indigo-50 dark:bg-indigo-900/10 p-8 rounded-3xl border border-indigo-100 dark:border-indigo-900/50 shadow-sm">
+                                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">
+                                            <a href="${esc(edu.url)}" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">${esc(edu.school)}</a>
+                                        </h3>
+                                        <p class="text-indigo-600 dark:text-indigo-400 font-bold">${state.lang === 'pl' ? esc(edu.degree) : 'Engineer, Computer Science'}</p>
+                                        <p class="text-sm text-slate-400 mt-2">${esc(edu.period)}</p>
+                                    </div>
+                                `).join('')}
+                            </section>
                         </div>
-                    </main>
-                </div>
-            `;
-        }
+                    </div>
+                </main>
+            </div>
+        `;
+    }
 
-        // --- OBSŁUGA ZDARZEŃ ---
-        window.toggleTheme = () => {
-            state.isDarkMode = !state.isDarkMode;
-            render();
-        };
-
-        window.setLang = (l) => {
-            state.lang = l;
-            localStorage.setItem('lang', l);
-            render();
-        };
-
-        window.toggleCourses = () => {
-            state.showAllCourses = !state.showAllCourses;
-            render();
-        };
-
-        window.toggleExperience = () => {
-            state.showAllExperience = !state.showAllExperience;
-            render();
-        };
-
-        // Inicjalizacja
+    // --- OBSŁUGA ZDARZEŃ ---
+    window.toggleTheme = () => {
+        state.isDarkMode = !state.isDarkMode;
         render();
-    </script>
+    };
+
+    window.setLang = (l) => {
+        state.lang = l;
+        localStorage.setItem('lang', l);
+        render();
+    };
+
+    window.toggleCourses = () => {
+        state.showAllCourses = !state.showAllCourses;
+        render();
+    };
+
+    window.toggleExperience = () => {
+        state.showAllExperience = !state.showAllExperience;
+        render();
+    };
+
+    // Inicjalizacja
+    render();
+</script>
 </body>
 </html>
