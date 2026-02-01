@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sopim | Michał Sobieraj - Professional Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="data.dat"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -21,11 +22,9 @@
             }
         }
     </script>
-<link rel="stylesheet" href="/index.css">
 </head>
 <body class="bg-gray-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 transition-colors duration-300">
     <div id="root"></div>
-
     <script>
         // --- ZABEZPIECZENIA ---
         
@@ -46,147 +45,6 @@
             const u = "michal.sobieraj";
             const d = "sopim.pl";
             return `${u}@${d}`;
-        };
-
-        // --- DANE CV ---
-        const CV_DATA = {
-            name: "Michał Sobieraj",
-            nip: "5271279258",
-            contact: {
-                linkedin: "linkedin.com/in/michal-sobieraj-2953962",
-                github: "github.com/lutencjusz",
-                salesforce: "trailblazer.me/id/msobieraj4"
-            },
-            skills: ["Java", "AI", "JUnit", "Selenium", "Postman", "SQL", "Agile", "Business Analysis", "Defect Management", "RPA", "Jenkins", "Kafka", "DevOps", "QA", "Soap UI", "WebDriver", "JSON", "Jira", "BPMN", "BDD", "JavaScript", "HTML"],
-            experience: [
-                { 
-                    company: "T-Mobile", 
-                    url: "https://www.t-mobile.pl", 
-                    role: "Software Development Engineer in Test", 
-                    period: "Lipiec 2022 - Obecnie",
-                    description: {
-                        pl: [
-                            "strategia i rozszerzanie zakresu wykonywanych testów",
-                            "analiza i tworzenie nowych testów funkcjonalnych i wydajnościowych",
-                            "utrzymanie istniejących testów"
-                        ],
-                        en: [
-                            "strategy and extension of the scope of tests performed",
-                            "analysis and development of functional and performance tests",
-                            "maintenance of existing tests"
-                        ]
-                    }
-                },
-                { 
-                    company: "Sii Poland", 
-                    url: "https://sii.pl", 
-                    role: "Senior IT Business Analyst", 
-                    period: "Listopad 2019 - Lipiec 2022",
-                    description: {
-                        pl: [
-                            "przygotowywanie wymagań produktowych",
-                            "analiza i przygotowywanie procesów biznesowych",
-                            "wsparcie wdrażania rozwiązań in metodyce agile"
-                        ],
-                        en: [
-                            "preparation of product requirements",
-                            "analysis and preparation of business processes",
-                            "support for the implementation of solutions in agile"
-                        ]
-                    }
-                },
-                { 
-                    company: "Polkomtel", 
-                    url: "https://www.plus.pl",
-                    role: "Senior Business Analyst", 
-                    period: "Czerwiec 2009 - Listopad 2019",
-                    description: {
-                        pl: [
-                            "przygotowywanie kosztorysów, studium szans, studium wykonalności",
-                            "szacowanie kosztów IT nowych produktów biznesowych",
-                            "koordynacja i weryfikacja podwykonawców"
-                        ],
-                        en: [
-                            "preparing of estimates, opportunity study, feasibility study",
-                            "estimating IT costs of new business products",
-                            "coordinating and verifying subcontractors"
-                        ]
-                    }
-                },
-                {
-                    company: "Citi Handlowy",
-                    url: "https://www.citidirect.com",
-                    role: {
-                        pl: "Naczelnik / specjalista baz danych",
-                        en: "Bank manager / Database specialist"
-                    },
-                    period: "Styczeń 2005 - Wrzesień 2008",
-                    description: {
-                        pl: [
-                            "zapewnianie utrzymania aplikacji i rozwiązań IT dla biznesu"
-                        ],
-                        en: [
-                            "providing maintenance of applications and IT solutions for Businesses"
-                        ]
-                    }
-                },
-                {
-                    company: "Siemens",
-                    url: "https://www.siemens.com",
-                    role: "IT&T Delivery Manager / Project Manager",
-                    period: "Październik 1999 - Listopad 2004",
-                    description: {
-                        pl: [
-                            "utrzymywanie i rozwój kontraktów outsourcingowych IT dla usług IT&T",
-                            "wdrażanie rozwiązań IT wspierających procesy biznesowe HelpDesk; zarządzanie sekcją deweloperską"
-                        ],
-                        en: [
-                            "maintenance and progress IT outsourcing contracts for IT&T services",
-                            "implementation of IT solutions that support business processes of HelpDesk; leading of developer section"
-                        ]
-                    }
-                }
-            ],
-            certifications: [
-                {
-                    name: "ISTQB - Certified Tester Foundation Level",
-                    provider: "SJSI Stowarzyszenie Jakości Systemów Informatycznych",
-                    providerUrl: "https://sjsi.org",
-                    date: "06/2022",
-                    id: "18375/CTFL/2022"
-                }
-            ],
-            education: [
-                { school: "Polsko-Japońska Akademia Technik Komputerowych", url: "https://pja.edu.pl", degree: "Inżynier Informatyki", period: "1998 - 2002" }
-            ],
-            courses: [
-                { name: "Hackathon during Tech Day 2025 – AI & Data Edition", provider: "T-Mobile (member of winner team)", date: "15/10/2025" },
-                { name: "Apache Kafka – od podstaw do zaawansowanej wiedzy – 5h", provider: "T-Mobile", date: "12/05/2024" },
-                { name: "CI/CD Jenkins dla testera/programisty w praktyce! – 5,5h", provider: "T-Mobile", date: "18/06/2023" },
-                { name: "Become 100% Confident RPA UiPath Developer – Build 8 Projects", provider: "T-Mobile", date: "10/04/2023" },
-                { name: "ISTQB Foundation – Sii Training Practice", provider: "Sii Poland", date: "27/05/2022" },
-                { name: "Cypress od podstaw – automatyzacja testów", provider: "Sii Poland", date: "10/05/2022" },
-                { name: "Postman od podstaw – testowanie REST API", provider: "Sii Poland", date: "18/04/2022" },
-                { name: "Akademia testera automatyzującego wave 1", provider: "T-Mobile", date: "18/10/2021" },
-                { name: "Tworzenie aplikacji w systemie Android", provider: "Sii Poland", date: "17/10/2021" },
-                { name: "Selenium – Serenity BDD Java", provider: "Sii Poland", date: "08/11/2020" },
-                { name: "Front-end zaawansowany (Udemy) – 38,5h", provider: "Sii Poland", date: "31/10/2020" },
-                { name: "React dla średnio zaawansowanych – 17,5h", provider: "Sii Poland", date: "22/05/2020" },
-                { name: "Node.js, Express, MongoDB & More – Complete Bootcamp", provider: "Polkomtel", date: "31/08/2019" },
-                { name: "Systems Architecture for Analyst – 24h", provider: "Polkomtel", date: "15/11/2018" },
-                { name: "UML for Analyst", provider: "Polkomtel", date: "10/2018" },
-                { name: "Angular/CLI – kompletny kurs od podstaw", provider: "Polkomtel", date: "23/02/2018" },
-                { name: "The George Washington University – PMI", provider: "Siemens", date: "1999–2003" },
-                { name: "Modelowanie procesów biznesowych w UML i BPMN", provider: "Polkomtel", date: "–" },
-                { name: "Service Oriented Architecture (SOA) – introduction", provider: "Polkomtel", date: "–" },
-                { name: "Mind Mapping", provider: "Polkomtel", date: "–" },
-                { name: "Risk Analytics", provider: "Citi Handlowy", date: "–" },
-                { name: "Leadership 1", provider: "Citi Handlowy", date: "–" },
-                { name: "Salesforce – Profil Trailblazer", provider: "Sii Poland", date: "–" },
-                { name: "Improving the Control Environment", provider: "Citi Handlowy", date: "–" },
-                { name: "Zarządzanie zakresem przy użyciu Enterprise Architect", provider: "Polkomtel", date: "–" },
-                { name: "Scope Management by Enterprise Architect", provider: "Polkomtel", date: "–" }
-            ]
         };
 
         // --- STAN APLIKACJI ---
@@ -317,7 +175,7 @@
 
                             <div class="mb-8 flex justify-center">
                                 <div class="w-32 h-32 rounded-full border-4 border-white/20 overflow-hidden shadow-2xl bg-slate-800 ring-4 ring-indigo-500/20">
-                                    <img src="IMG_5595.JPG" alt="${esc(CV_DATA.name)}" class="w-full h-full object-cover" onerror="this.src='https://picsum.photos/seed/michal/200/200'"/>
+                                    <img src="./IMG_5595.JPG" alt="${esc(CV_DATA.name)}" class="w-full h-full object-cover" onerror="this.src='https://media.licdn.com/dms/image/v2/C5603AQHs8aSrhMUqMw/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1516262093371?e=1771459200&v=beta&t=2gcJzbQUAbbE72mn2RodcLwqca2SSuyAP5jSyqvsV4s'"/>
                                 </div>
                             </div>
                             
@@ -475,6 +333,5 @@
         // Inicjalizacja
         render();
     </script>
-<script type="module" src="/index.tsx"></script>
 </body>
 </html>
